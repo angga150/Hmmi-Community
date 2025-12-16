@@ -1,0 +1,17 @@
+{
+    "24012217": {
+        "name": "Ihsan Baihaqi",
+        "role": "admin",
+        "mail": "admin@ihsan.com",
+        "pass": "admin123",
+        "absen": {
+            "11-12-2025": {
+                "status": 1,
+                "keterangan": ""
+            }
+        },
+        "created_at": "11-12-2025",
+        "updated_at": "11-12-2025",
+        "updated_by": ""
+    }
+}
