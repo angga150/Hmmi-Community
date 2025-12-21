@@ -3,7 +3,8 @@
   "scripts": {
     "frontend": "cd frontend && npm run dev",
     "backend": "cd backend && php -S localhost:8000",
-    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+    "dev": "npx concurrently \"npm run backend\" \"npm run frontend\"",
+    "setup": "npm install && npm install --prefix frontend"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
