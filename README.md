@@ -8,5 +8,6 @@ npm run dev
 
 ### localhost
 
-`http://localhost:3000/` - Buat Jalankan Frontend
-`http://localhost:8000/` - Buat Jalankan Backend
+`http://localhost:3000/` - Buat Jalankan Frontend.
+
+`http://localhost:8000/` - Buat Jalankan Backend.
