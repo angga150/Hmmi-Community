@@ -6,4 +6,7 @@ npm run setup
 npm run dev
 ```
 
-### sory ya banyak data yang ku hapus
+### localhost
+
+`http://localhost:3000/` - Buat Jalankan Frontend
+`http://localhost:8000/` - Buat Jalankan Backend
