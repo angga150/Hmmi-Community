@@ -1,10 +1,13 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
-
 import React from "react";
 import ReactDOM from "react-dom/client";
-import LoginForm from "./LoginForm";
+import LoginForm from "./LoginForm"; // komponen utama Anda
+//import "./index.css"; // custom CSS
 
-ReactDOM.createRoot(document.getElementById("react-login")).render(
-  <LoginForm />
+// Bootstrap CSS (jika ingin import via npm)
+import "bootstrap/dist/css/bootstrap.min.css";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <LoginForm />
+  </React.StrictMode>
 );
