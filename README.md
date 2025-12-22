@@ -98,7 +98,7 @@ export default function Profile() {
 ### logic register dan login sudah diperbaiki
 - bisa dikirim lewat form html biasa ( no js ) :
 ```
-<form method="POST" action="http://localhost/project-app/backend/public/api/auth/login">
+<form method="POST" action="http://localhost/Hmmi-Community/backend/public/api/auth/login">
   <input type="email" name="email" placeholder="Email" required>
   <input type="password" name="password" placeholder="Password" required>
   <button type="submit">Login</button>
@@ -117,7 +117,7 @@ export default function Profile() {
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const res = await fetch("http://localhost/project-app/backend/public/api/auth/login", {
+  const res = await fetch("http://localhost/Hmmi-Community/backend/public/api/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

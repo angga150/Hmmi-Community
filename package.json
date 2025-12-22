@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "frontend": "cd frontend && npm run dev",
-    "backend": "cd backend && php -S localhost:8000",
+    "backend": "php -S localhost:8000 -t backend/public",
     "dev": "npx concurrently \"npm run backend\" \"npm run frontend\"",
     "setup": "npm install && npm install --prefix frontend"
   },

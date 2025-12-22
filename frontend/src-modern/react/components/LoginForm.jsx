@@ -15,7 +15,7 @@ function LoginForm({ onLogin, goRegister }) {
     // Bentar dulu, aku masih bingung
     try {
       const response = await axios.post(
-        "http://localhost:8000/public/api/auth/login",
+        "http://localhost:8000/api/auth/login",
         {
           email: "test@mail.com",
           password: "123456",
