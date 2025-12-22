@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function LoginForm() {
+function LoginForm({ onLogin, goRegister }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
@@ -21,6 +21,8 @@ function LoginForm() {
       const data = await res.json();
       setMsg(data.success ? "Login berhasil" : "Login gagal");
       // setUser(data.user);
+      onLogin(data.user);
+      goRegister("dashboard");
     } catch (error) {
       setMsg("Terjadi kesalahan, coba lagi");
     } finally {
@@ -46,7 +48,7 @@ function LoginForm() {
             <div className="card shadow-lg border-0 rounded-4">
               <div className="card-body p-5">
                 <div className="text-center mb-4">
-                  <h2 className="fw-bold text-primary mb-2">Welcome Back</h2>
+                  <h2 className="fw-bold text-primary mb-2">HMMI Community</h2>
                   <p className="text-muted">Please login to your account</p>
                 </div>
 

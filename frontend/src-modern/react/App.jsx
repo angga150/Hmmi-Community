@@ -1,40 +1,48 @@
 import { useState } from "react";
+import LoginForm from "./components/LoginForm";
+// import Register from "./Register";
+// import Dashboard from "./Dashboard";
 
 function App() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [msg, setMsg] = useState("");
+  const [user, setUser] = useState(null);
+  const [page, setPage] = useState("login");
 
-  const login = async (e) => {
-    e.preventDefault();
-
-    const res = await fetch("/api/login.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
-
-    const data = await res.json();
-    setMsg(data.success ? "Login berhasil" : "Login gagal");
-  };
+  if (user && page !== "dashboard") {
+    setPage("dashboard");
+  }
 
   return (
-    <form onSubmit={login} className="card p-3">
-      <h5>Login</h5>
-      <input
-        className="form-control mb-2"
-        placeholder="Username"
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        className="form-control mb-2"
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button className="btn btn-primary">Login</button>
-      {msg && <div className="mt-2">{msg}</div>}
-    </form>
+    <>
+      {page === "login" && (
+        <LoginForm
+          onLogin={(username) => {
+            setUser(username);
+            setPage("dashboard");
+          }}
+          goRegister={() => setPage("register")}
+        />
+      )}
+
+      {page === "register" && (
+        <Register
+          onRegister={(username) => {
+            setUser(username);
+            setPage("dashboard");
+          }}
+          goLogin={() => setPage("login")}
+        />
+      )}
+
+      {page === "dashboard" && user && (
+        <Dashboard
+          user={user}
+          onLogout={() => {
+            setUser(null);
+            setPage("login");
+          }}
+        />
+      )}
+    </>
   );
 }
 
