@@ -14,8 +14,8 @@ function LoginForm({ onLogin, goRegister }) {
 
     try {
       const response = await axios.post("/auth/login", {
-        email: "test@mail.com",
-        password: "123456",
+        email: username,
+        password: password,
       });
 
       console.log(response);
@@ -67,13 +67,13 @@ function LoginForm({ onLogin, goRegister }) {
                       htmlFor="username"
                       className="form-label fw-semibold"
                     >
-                      Username
+                      Email
                     </label>
                     <input
                       id="username"
-                      type="text"
+                      type="email"
                       className="form-control form-control-lg border-2"
-                      placeholder="Enter your username"
+                      placeholder="Enter your email"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                       required
