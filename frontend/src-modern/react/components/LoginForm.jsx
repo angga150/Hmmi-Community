@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 function LoginForm({ onLogin, goRegister }) {
   const [username, setUsername] = useState("");
@@ -11,22 +12,34 @@ function LoginForm({ onLogin, goRegister }) {
     setIsLoading(true);
     setMsg("");
 
+    // Bentar dulu, aku masih bingung
     try {
-      const res = await fetch("/api/login.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
+      const response = await axios.post(
+        "http://localhost:8000/public/api/auth/login",
+        {
+          email: "test@mail.com",
+          password: "123456",
+        }
+      );
 
-      const data = await res.json();
-      setMsg(data.success ? "Login berhasil" : "Login gagal");
-      // setUser(data.user);
-      onLogin(data.user);
-      goRegister("dashboard");
-    } catch (error) {
-      setMsg("Terjadi kesalahan, coba lagi");
-    } finally {
+      console.log(response);
       setIsLoading(false);
+      setMsg("Login berhasil!");
+      onLogin(username);
+      // simpan token
+      localStorage.setItem("token", response.data.token);
+    } catch (error) {
+      setIsLoading(false);
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setMsg(`Login gagal: ${error.response.data.message}`);
+      } else {
+        setMsg("Login gagal: Terjadi kesalahan server.");
+      }
+      console.error("Login error:", error);
     }
   };
 
