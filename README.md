@@ -94,3 +94,59 @@ export default function Profile() {
 ### Form login yang di minta backend 
 - email 
 - password
+
+### logic register dan login sudah diperbaiki
+- bisa dikirim lewat form html biasa ( no js ) :
+```
+<form method="POST" action="http://localhost/project-app/backend/public/api/auth/login">
+  <input type="email" name="email" placeholder="Email" required>
+  <input type="password" name="password" placeholder="Password" required>
+  <button type="submit">Login</button>
+</form>
+```
+
+- bisa juga dikirim lewat html + js (fetch), contoh :
+```
+<form id="loginForm">
+  <input id="email" type="email">
+  <input id="password" type="password">
+  <button>Login</button>
+</form>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const res = await fetch("http://localhost/project-app/backend/public/api/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      email: email.value,
+      password: password.value
+    })
+  });
+
+  const data = await res.json();
+  console.log(data);
+});
+</script>
+```
+
+- bisa juga dari react/vite, contoh :
+```
+await fetch(import.meta.env.VITE_API_URL + "/auth/login", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    email,
+    password
+  })
+});
+```
+
+### dipikirkan secara logika. terimakasih saya mau istirahat dulu malam lanjut lagi😂
+### oh iya itu database nya sedikit saya rubah mohon di update
