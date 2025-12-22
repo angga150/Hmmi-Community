@@ -12,15 +12,11 @@ function LoginForm({ onLogin, goRegister }) {
     setIsLoading(true);
     setMsg("");
 
-    // Bentar dulu, aku masih bingung
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/auth/login",
-        {
-          email: "test@mail.com",
-          password: "123456",
-        }
-      );
+      const response = await axios.post("/auth/login", {
+        email: "test@mail.com",
+        password: "123456",
+      });
 
       console.log(response);
       setIsLoading(false);

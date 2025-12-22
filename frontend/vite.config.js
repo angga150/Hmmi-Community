@@ -79,8 +79,14 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
-    // Enable CORS for development
     cors: true,
+    proxy: {
+      "/auth": {
+        target: "http://localhost:8000/api/",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
 
   preview: {
