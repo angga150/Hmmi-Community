@@ -25,22 +25,23 @@ npm run dev
 
 ### Posisi Pemanggilan 
 
-User klik Login (React)
-↓
-React (fetch / axios)
-↓
-http://localhost/Hmmi-Community/backend/public/api/auth/login
-↓
-index.php (single entry)
-↓
-api/auth/login.php
-↓
-response JSON balik ke React
+- User klik Login (React)
+- ↓
+- React (fetch / axios)
+- ↓
+- http://localhost/Hmmi-Community/backend/public/api/auth/login
+- ↓
+- index.php (single entry)
+- ↓
+- api/auth/login.php
+- ↓
+- response JSON balik ke React
 
 ### Contoh PANGGIL LOGIN di React
 
-#### Misalnya di : frontend/src-modern/pages/Login.jsx
+### Misalnya di : frontend/src-modern/pages/Login.jsx
 
+``` 
 import axios from "axios";
 
 export default function Login() {
@@ -60,9 +61,11 @@ export default function Login() {
 
   return <button onClick={handleLogin}>Login</button>;
 }
+```
 
-#### Contoh PANGGIL /me (SETELAH LOGIN)
+### Contoh PANGGIL /me (SETELAH LOGIN)
 
+```
 import axios from "axios";
 import { useEffect } from "react";
 
@@ -83,6 +86,7 @@ export default function Profile() {
 
   return <div>Profile</div>;
 }
+```
 
 - 📌 Header Authorization DIKIRIM DARI REACT
 
