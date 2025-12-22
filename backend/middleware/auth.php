@@ -6,7 +6,7 @@ $token = $headers['Authorization'] ?? null;
 
 if (!$token) {
     http_response_code(401);
-    echo json_encode(["message"=>"Unauthorized"]);
+    echo json_encode(["message"=>"lu belum login woi"]);
     exit;
 }
 
@@ -16,6 +16,6 @@ $user = $stmt->fetch();
 
 if (!$user) {
     http_response_code(401);
-    echo json_encode(["message"=>"Invalid token"]);
+    echo json_encode(["message"=>"akun lu belum terdaftar woi"]);
     exit;
 }
