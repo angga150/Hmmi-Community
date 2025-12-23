@@ -2,7 +2,7 @@
 require_once __DIR__ . "/../config/database.php";
 
 $headers = getallheaders();
-$token = $headers['Authorization'] ?? null;
+$token = $headers['authorization'] ?? null;
 
 if (!$token) {
     http_response_code(401);

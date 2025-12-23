@@ -4,7 +4,7 @@ require_once __DIR__ . "/../../middleware/auth.php";
 echo json_encode([
     "user" => [
         "id" => $user['id'],
-        "name" => $user['name'],
+        "username" => $user['username'],
         "email" => $user['email']
     ]
 ]);
