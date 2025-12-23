@@ -1,46 +1,71 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import Dashboard from "./components/Dashboard";
 
 function App() {
-  const [user, setUser] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [page, setPage] = useState("login");
+  const [token, setToken] = useState(null);
+
+  // ambil token saat app load
+  useEffect(() => {
+    const savedToken = localStorage.getItem("token");
+    if (savedToken) {
+      setToken(savedToken);
+    }
+  }, []);
 
   return (
-    <>
-      {page === "login" && (
-        <LoginForm
-          onLogin={(getEmail) => {
-            setEmail(getEmail);
-            setPage("dashboard");
-          }}
-          goRegister={() => setPage("register")}
+    <Router>
+      <Routes>
+        {/* LOGIN */}
+        <Route
+          path="/login"
+          element={
+            token ? (
+              <Navigate to="/dashboard" />
+            ) : (
+              <LoginForm
+                onLogin={(tokenFromLogin) => {
+                  setToken(tokenFromLogin);
+                }}
+              />
+            )
+          }
         />
-      )}
 
-      {page === "register" && (
-        <RegisterForm
-          onRegister={(username, email) => {
-            setUser(username);
-            setEmail(email);
-            setPage("login");
-          }}
-          goLogin={() => setPage("login")}
+        {/* REGISTER */}
+        <Route
+          path="/register"
+          element={token ? <Navigate to="/dashboard" /> : <RegisterForm />}
         />
-      )}
 
-      {page === "dashboard" && email && (
-        <Dashboard
-          email={email}
-          onLogout={() => {
-            setUser(null);
-            setPage("login");
-          }}
+        {/* DASHBOARD */}
+        <Route
+          path="/dashboard"
+          element={
+            token ? (
+              <Dashboard
+                onLogout={() => {
+                  localStorage.removeItem("token");
+                  setToken(null);
+                }}
+              />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
-      )}
-    </>
+
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
+    </Router>
   );
 }
 

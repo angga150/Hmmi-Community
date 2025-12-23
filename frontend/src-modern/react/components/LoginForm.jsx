@@ -1,7 +1,10 @@
+import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-function LoginForm({ onLogin, goRegister }) {
+function LoginForm({ onLogin }) {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
@@ -14,23 +17,23 @@ function LoginForm({ onLogin, goRegister }) {
 
     try {
       const response = await axios.post("/auth/login", {
-        email: email,
-        password: password,
+        email,
+        password,
       });
 
-      console.log(response);
       setIsLoading(false);
       setMsg("Login berhasil!");
-      onLogin(email);
+
       // simpan token
       localStorage.setItem("token", response.data.token);
+
+      onLogin(response.data.token);
+
+      // pindah ke dashboard
+      navigate("/dashboard");
     } catch (error) {
       setIsLoading(false);
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
+      if (error.response?.data?.message) {
         setMsg(`Login gagal: ${error.response.data.message}`);
       } else {
         setMsg("Login gagal: Terjadi kesalahan server.");
@@ -53,7 +56,7 @@ function LoginForm({ onLogin, goRegister }) {
             </div>
           </div>
 
-          <div className="col-lg-5 col-md-8 col-sm-10">
+          <div className="col-lg-6 col-md-8 col-sm-10">
             <div className="card shadow-lg border-0 rounded-4">
               <div className="card-body p-5">
                 <div className="text-center mb-4">
@@ -63,14 +66,8 @@ function LoginForm({ onLogin, goRegister }) {
 
                 <form onSubmit={login}>
                   <div className="mb-4">
-                    <label
-                      htmlFor="username"
-                      className="form-label fw-semibold"
-                    >
-                      Email
-                    </label>
+                    <label className="form-label fw-semibold">Email</label>
                     <input
-                      id="email"
                       type="email"
                       className="form-control form-control-lg border-2"
                       placeholder="Enter your email"
@@ -82,14 +79,8 @@ function LoginForm({ onLogin, goRegister }) {
                   </div>
 
                   <div className="mb-4">
-                    <label
-                      htmlFor="password"
-                      className="form-label fw-semibold"
-                    >
-                      Password
-                    </label>
+                    <label className="form-label fw-semibold">Password</label>
                     <input
-                      id="password"
                       type="password"
                       className="form-control form-control-lg border-2"
                       placeholder="Enter your password"
@@ -107,11 +98,7 @@ function LoginForm({ onLogin, goRegister }) {
                   >
                     {isLoading ? (
                       <>
-                        <span
-                          className="spinner-border spinner-border-sm me-2"
-                          role="status"
-                          aria-hidden="true"
-                        ></span>
+                        <span className="spinner-border spinner-border-sm me-2" />
                         Loading...
                       </>
                     ) : (
@@ -121,7 +108,11 @@ function LoginForm({ onLogin, goRegister }) {
 
                   {msg && (
                     <div
-                      className={`mt-3 alert ${msg.includes("berhasil") ? "alert-success" : "alert-danger"} text-center`}
+                      className={`mt-3 alert ${
+                        msg.includes("berhasil")
+                          ? "alert-success"
+                          : "alert-danger"
+                      } text-center`}
                     >
                       {msg}
                     </div>
@@ -130,17 +121,20 @@ function LoginForm({ onLogin, goRegister }) {
                   <div className="text-center mt-4">
                     <p className="text-muted mb-0">
                       Don't have an account?{" "}
-                      <a
-                        href="#"
+                      <Link
+                        to="/register"
                         className="text-decoration-none fw-semibold"
-                        onClick={() => goRegister()}
                       >
                         Sign up
-                      </a>
+                      </Link>
                     </p>
-                    <a href="/forgot-password" className="text-decoration-none">
+
+                    <Link
+                      to="/forgot-password"
+                      className="text-decoration-none"
+                    >
                       Forgot password?
-                    </a>
+                    </Link>
                   </div>
                 </form>
               </div>

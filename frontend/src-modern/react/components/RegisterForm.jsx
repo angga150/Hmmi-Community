@@ -1,38 +1,49 @@
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
-function RegisterForm({ onRegister, goLogin }) {
+function RegisterForm({ onRegister }) {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
+  const [badRequest, setBadRequest] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const register = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setMsg("");
+
     try {
       const response = await axios.post("/auth/register", {
-        username: username,
-        email: email,
-        password: password,
+        username,
+        email,
+        password,
       });
-      console.log(response);
+
       setIsLoading(false);
-      if (response.data.message == "Register berhasil") {
+
+      if (response.data.message === "Register berhasil") {
         setMsg("Registrasi berhasil! Silakan login.");
         onRegister(username, email);
+
+        setBadRequest(false);
+
+        // redirect ke login
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000);
       } else {
+        setBadRequest(true);
         setMsg("Email sudah terdaftar");
       }
     } catch (error) {
       setIsLoading(false);
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
+      setBadRequest(true);
+      if (error.response?.data?.message) {
         setMsg(`Registrasi gagal: ${error.response.data.message}`);
       } else {
         setMsg("Registrasi gagal: Terjadi kesalahan server.");
@@ -40,6 +51,7 @@ function RegisterForm({ onRegister, goLogin }) {
       console.error("Register error:", error);
     }
   };
+
   return (
     <div className="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-light">
       <div className="container">
@@ -53,6 +65,7 @@ function RegisterForm({ onRegister, goLogin }) {
               />
             </div>
           </div>
+
           <div className="col-lg-5 col-md-8 col-sm-10">
             <div className="card shadow-lg border-0 rounded-4">
               <div className="card-body p-5">
@@ -60,16 +73,11 @@ function RegisterForm({ onRegister, goLogin }) {
                   <h2 className="fw-bold text-primary mb-2">HMMI Community</h2>
                   <h4 className="fw-normal mb-4">Create your account</h4>
                 </div>
+
                 <form onSubmit={register}>
                   <div className="mb-3">
-                    <label
-                      htmlFor="username"
-                      className="form-label fw-semibold"
-                    >
-                      Username
-                    </label>
+                    <label className="form-label fw-semibold">Username</label>
                     <input
-                      id="username"
                       type="text"
                       className="form-control form-control-lg border-2"
                       placeholder="Enter your username"
@@ -79,12 +87,10 @@ function RegisterForm({ onRegister, goLogin }) {
                       disabled={isLoading}
                     />
                   </div>
+
                   <div className="mb-4">
-                    <label htmlFor="email" className="form-label fw-semibold">
-                      Email
-                    </label>
+                    <label className="form-label fw-semibold">Email</label>
                     <input
-                      id="email"
                       type="email"
                       className="form-control form-control-lg border-2"
                       placeholder="Enter your email"
@@ -94,15 +100,10 @@ function RegisterForm({ onRegister, goLogin }) {
                       disabled={isLoading}
                     />
                   </div>
+
                   <div className="mb-3">
-                    <label
-                      htmlFor="password"
-                      className="form-label fw-semibold"
-                    >
-                      Password
-                    </label>
+                    <label className="form-label fw-semibold">Password</label>
                     <input
-                      id="password"
                       type="password"
                       className="form-control form-control-lg border-2"
                       placeholder="Enter your password"
@@ -112,7 +113,17 @@ function RegisterForm({ onRegister, goLogin }) {
                       disabled={isLoading}
                     />
                   </div>
-                  {msg && <div className="alert alert-info mt-3">{msg}</div>}
+
+                  {msg && (
+                    <div
+                      className={`alert alert ${
+                        badRequest ? "alert-danger" : "alert-success"
+                      } mt-3`}
+                    >
+                      {msg}
+                    </div>
+                  )}
+
                   <div className="d-grid gap-2 mt-4">
                     <button
                       type="submit"
@@ -125,16 +136,16 @@ function RegisterForm({ onRegister, goLogin }) {
                 </form>
               </div>
             </div>
+
             <div className="text-center mt-4">
               <p className="text-muted">
                 Already have an account?{" "}
-                <a
-                  href="#"
+                <Link
+                  to="/login"
                   className="text-decoration-none text-primary fw-semibold"
-                  onClick={goLogin}
                 >
                   Login here
-                </a>
+                </Link>
               </p>
             </div>
           </div>
