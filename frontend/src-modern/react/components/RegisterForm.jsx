@@ -22,7 +22,7 @@ function RegisterForm({ onRegister, goLogin }) {
       setIsLoading(false);
       if (response.data.message == "Register berhasil") {
         setMsg("Registrasi berhasil! Silakan login.");
-        onRegister(username);
+        onRegister(username, email);
       } else {
         setMsg("Email sudah terdaftar");
       }

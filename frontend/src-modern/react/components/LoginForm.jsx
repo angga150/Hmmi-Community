@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 function LoginForm({ onLogin, goRegister }) {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -14,14 +14,14 @@ function LoginForm({ onLogin, goRegister }) {
 
     try {
       const response = await axios.post("/auth/login", {
-        email: username,
+        email: email,
         password: password,
       });
 
       console.log(response);
       setIsLoading(false);
       setMsg("Login berhasil!");
-      onLogin(username);
+      onLogin(email);
       // simpan token
       localStorage.setItem("token", response.data.token);
     } catch (error) {
@@ -70,12 +70,12 @@ function LoginForm({ onLogin, goRegister }) {
                       Email
                     </label>
                     <input
-                      id="username"
+                      id="email"
                       type="email"
                       className="form-control form-control-lg border-2"
                       placeholder="Enter your email"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       required
                       disabled={isLoading}
                     />
