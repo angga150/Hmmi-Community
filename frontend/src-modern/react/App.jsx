@@ -7,10 +7,6 @@ function App() {
   const [user, setUser] = useState(null);
   const [page, setPage] = useState("login");
 
-  if (user && page !== "dashboard") {
-    setPage("dashboard");
-  }
-
   return (
     <>
       {page === "login" && (
@@ -27,7 +23,7 @@ function App() {
         <RegisterForm
           onRegister={(username) => {
             setUser(username);
-            setPage("dashboard");
+            setPage("login");
           }}
           goLogin={() => setPage("login")}
         />

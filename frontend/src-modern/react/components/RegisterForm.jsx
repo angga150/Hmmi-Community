@@ -20,8 +20,12 @@ function RegisterForm({ onRegister, goLogin }) {
       });
       console.log(response);
       setIsLoading(false);
-      setMsg("Registrasi berhasil! Silakan login.");
-      onRegister(username);
+      if (response.data.message == "Register berhasil") {
+        setMsg("Registrasi berhasil! Silakan login.");
+        onRegister(username);
+      } else {
+        setMsg("Email sudah terdaftar");
+      }
     } catch (error) {
       setIsLoading(false);
       if (
