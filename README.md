@@ -16,14 +16,14 @@ npm run dev
 
 `http://localhost:3000/test.html` - Ini adalah html dari react.
 
-### Url yang dipanggil untuk react 
+### Url yang dipanggil untuk react
 
 - POST http://localhost/Hmmi-Community/backend/public/api/auth/login
-- GET  http://localhost/Hmmi-Community/backend/public/api/auth/me
+- GET http://localhost/Hmmi-Community/backend/public/api/auth/me
 - Header:
 - Authorization: TOKEN
 
-### Posisi Pemanggilan 
+### Posisi Pemanggilan
 
 - User klik Login (React)
 - ↓
@@ -41,7 +41,7 @@ npm run dev
 
 ### Misalnya di : frontend/src-modern/pages/Login.jsx
 
-``` 
+```
 import axios from "axios";
 
 export default function Login() {
@@ -90,13 +90,15 @@ export default function Profile() {
 
 - 📌 Header Authorization DIKIRIM DARI REACT
 
+### Form login yang di minta backend
 
-### Form login yang di minta backend 
-- email 
+- email
 - password
 
 ### logic register dan login sudah diperbaiki
+
 - bisa dikirim lewat form html biasa ( no js ) :
+
 ```
 <form method="POST" action="http://localhost/Hmmi-Community/backend/public/api/auth/login">
   <input type="email" name="email" placeholder="Email" required>
@@ -106,6 +108,7 @@ export default function Profile() {
 ```
 
 - bisa juga dikirim lewat html + js (fetch), contoh :
+
 ```
 <form id="loginForm">
   <input id="email" type="email">
@@ -135,6 +138,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 ```
 
 - bisa juga dari react/vite, contoh :
+
 ```
 await fetch(import.meta.env.VITE_API_URL + "/auth/login", {
   method: "POST",
@@ -148,5 +152,13 @@ await fetch(import.meta.env.VITE_API_URL + "/auth/login", {
 });
 ```
 
-### dipikirkan secara logika. terimakasih saya mau istirahat dulu malam lanjut lagi😂
-### oh iya itu database nya sedikit saya rubah mohon di update
+### Route Pada React
+
+- Panggil `localhost:3000/test.html` untuk menjalankan.
+- Link otomatis mengarahkan ke `localhost:3000/login` untuk melakukan login.
+- Route yang masih tersedia `/login`, `/register` & `/dashboard`.
+
+### Noted
+
+- Jangan coba refresh, refresh kembali ke `localhost:3000/test.html` untuk melanjutkan.
+- Jika error coba jalankan `npm run setup` untuk instalasi Route.
