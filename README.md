@@ -162,3 +162,8 @@ await fetch(import.meta.env.VITE_API_URL + "/auth/login", {
 
 - Jangan coba refresh, refresh kembali ke `localhost:3000/test.html` untuk melanjutkan.
 - Jika error coba jalankan `npm run setup` untuk instalasi Route.
+
+### Redesain Tampilan
+
+- [Icon React Font Awesome](https://react-icons.github.io/react-icons/icons/fa/)
+- Custom CSS.
