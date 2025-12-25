@@ -169,3 +169,6 @@ await fetch(import.meta.env.VITE_API_URL + "/auth/login", {
 - Custom CSS.
 
 ### duluan aja san siapin nya nnti backend nya nyusul ya aku besok mau siapin tugas dulu
+
+> 🗿
+---
