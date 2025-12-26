@@ -176,3 +176,5 @@ await fetch(import.meta.env.VITE_API_URL + "/auth/login", {
 ---
 
 > wkwk thanks, untuk tampilan responsif bisa di contoh dari template. ini tampilan nya gak ngambil dari template? ini bikin sendiri?
+---
+> Sildebar template nya gk bisa scroll,Ini dari telegram aku modif dikit
