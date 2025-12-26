@@ -169,9 +169,9 @@ await fetch(import.meta.env.VITE_API_URL + "/auth/login", {
 
 - [Icon React Font Awesome](https://react-icons.github.io/react-icons/icons/fa/)
 - Custom CSS.
+- Membuat Tampilan Dashboard
 
-### duluan aja san siapin nya nnti backend nya nyusul ya aku besok mau siapin tugas dulu
-
-> 🗿
+> Belum buat responsif ntar aja,
+> Dahlah capek mikirin konsepnya
 
 ---
