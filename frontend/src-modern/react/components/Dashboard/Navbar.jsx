@@ -18,13 +18,15 @@ function Navbar({
     >
       <div className="container-fluid">
         <div className="d-flex align-items-center w-100">
-          {/* Sidebar Toggle for Mobile */}
-          <button className="btn d-lg-none me-2" onClick={onToggle}>
+          <button
+            className="btn d-lg-none me-2"
+            onClick={onToggle}
+            aria-label="Toggle sidebar"
+          >
             <FaBars />
           </button>
 
-          {/* Page Title */}
-          <div className="d-none d-lg-block">
+          <div>
             <h1 className="h4 fw-bold mb-0">Dashboard</h1>
           </div>
 

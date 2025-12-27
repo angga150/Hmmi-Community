@@ -18,6 +18,41 @@ function Dashboard({ onLogout }) {
   const [activeTab, setActiveTab] = useState("upcoming");
   const [filterType, setFilterType] = useState("all");
 
+  const [isMobile, setIsMobile] = useState(false);
+  // Deteksi ukuran layar
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 992); // Breakpoint LG di Bootstrap
+    };
+
+    checkMobile();
+
+    // Tambah event listener untuk resize
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
+
+  // Reset sidebar state saat berpindah dari mobile ke desktop
+  useEffect(() => {
+    if (!isMobile && sidebarCollapsed) {
+      setSidebarCollapsed(false);
+    }
+  }, [isMobile, sidebarCollapsed]);
+
+  // Toggle sidebar dengan pengecekan device
+  const handleToggleSidebar = () => {
+    if (isMobile) {
+      // Di mobile, toggle biasa
+      setSidebarCollapsed(!sidebarCollapsed);
+    } else {
+      // Di desktop, gunakan collapsed state
+      setSidebarCollapsed(!sidebarCollapsed);
+    }
+  };
+
   // Data meetings dummy
   const [meetings] = useState([
     {
@@ -161,8 +196,8 @@ function Dashboard({ onLogout }) {
         {/* Sidebar */}
         <Sidebar
           user={user}
-          collapsed={sidebarCollapsed}
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+          collapsed={isMobile ? sidebarCollapsed : false}
+          onToggle={handleToggleSidebar}
           onLogout={() => {
             localStorage.removeItem("token");
             onLogout();
@@ -172,16 +207,16 @@ function Dashboard({ onLogout }) {
 
         {/* Main Content */}
         <div
-          className={`${sidebarCollapsed ? "col-lg-11 col-xl-11" : "col-lg-10 col-xl-10"} offset-lg-2 offset-xl-1`}
+          className={`${sidebarCollapsed && !isMobile ? "col-lg-11 col-xl-11" : "col-lg-10 col-xl-10"} offset-lg-2 offset-xl-1`}
           style={{
-            marginLeft: sidebarCollapsed ? "0px" : "250px",
+            marginLeft: isMobile ? "0px" : sidebarCollapsed ? "0px" : "250px",
             transition: "margin-left 0.3s ease",
           }}
         >
           {/* Navbar */}
           <Navbar
-            collapsed={sidebarCollapsed}
-            onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+            collapsed={isMobile ? sidebarCollapsed : sidebarCollapsed}
+            onToggle={handleToggleSidebar}
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
             onAddMeeting={() => {
