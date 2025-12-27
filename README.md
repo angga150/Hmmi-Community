@@ -172,9 +172,15 @@ await fetch(import.meta.env.VITE_API_URL + "/auth/login", {
 - Membuat Tampilan Dashboard
 
 > Belum buat responsif ntar aja,
-> Dahlah capek mikirin konsepnya
+
+> Dahlah capek mikirin konsepnya.
+
+> Tampilannya masih bug, ketika berada ditampilan mobile dan hamburger diclose lalu mengubah tampilannya ke dashboard, sidebarnya ikutan ilang
+
 ---
 
 > wkwk thanks, untuk tampilan responsif bisa di contoh dari template. ini tampilan nya gak ngambil dari template? ini bikin sendiri?
+
 ---
-> Sildebar template nya gk bisa scroll,Ini dari telegram aku modif dikit
+
+> Sidebar template nya gk bisa scroll,Ini dari telegram aku modif dikit
