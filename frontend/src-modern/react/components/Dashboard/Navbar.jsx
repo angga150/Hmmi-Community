@@ -11,7 +11,7 @@ function Navbar({
     <nav
       className="navbar navbar-light bg-white shadow-sm fixed-top"
       style={{
-        marginLeft: collapsed ? "70px" : "250px",
+        marginLeft: collapsed ? "0px" : "250px",
         transition: "margin-left 0.3s ease",
         zIndex: 999,
       }}

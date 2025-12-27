@@ -172,7 +172,11 @@ function Dashboard({ onLogout }) {
 
         {/* Main Content */}
         <div
-          className={`${sidebarCollapsed ? "col-lg-11 col-xl-11" : "col-lg-10 col-xl-10"} offset-lg-2 offset-xl-2`}
+          className={`${sidebarCollapsed ? "col-lg-11 col-xl-11" : "col-lg-10 col-xl-10"} offset-lg-2 offset-xl-1`}
+          style={{
+            marginLeft: sidebarCollapsed ? "0px" : "250px",
+            transition: "margin-left 0.3s ease",
+          }}
         >
           {/* Navbar */}
           <Navbar
