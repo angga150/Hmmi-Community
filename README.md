@@ -183,3 +183,5 @@ await fetch(import.meta.env.VITE_API_URL + "/auth/login", {
 ---
 
 > Sidebar template nya gk bisa scroll,Ini template dari telegram aku modif dikit
+> update readme
+> 
