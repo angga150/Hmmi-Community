@@ -170,12 +170,11 @@ await fetch(import.meta.env.VITE_API_URL + "/auth/login", {
 - [Icon React Font Awesome](https://react-icons.github.io/react-icons/icons/fa/)
 - Custom CSS.
 - Membuat Tampilan Dashboard
+- Responsive Dashboard
 
 > Belum buat responsif ntar aja,
 
 > Dahlah capek mikirin konsepnya.
-
-> Tampilannya masih bug, ketika berada ditampilan mobile dan hamburger diclose lalu mengubah tampilannya ke dashboard, sidebarnya ikutan ilang
 
 ---
 
@@ -183,4 +182,4 @@ await fetch(import.meta.env.VITE_API_URL + "/auth/login", {
 
 ---
 
-> Sidebar template nya gk bisa scroll,Ini dari telegram aku modif dikit
+> Sidebar template nya gk bisa scroll,Ini template dari telegram aku modif dikit
