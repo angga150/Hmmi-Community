@@ -86,4 +86,4 @@ backend/
 
 ---
 
-username gak perlu UNIQ sih, boleh sama, yang harus beda itu Email, karena kan Login nya pakai E-Mail, jadi username bisa buat identitas nama lengkap anggota, misal `Ihsan Baihaqi`, kecuali loginnya gak pakai E-Mail tetapi username `ihsan123`.
+username gak perlu UNIQ sih, boleh sama, yang harus beda itu Email, karena kan Login nya pakai E-Mail, jadi username bisa buat identitas nama lengkap anggota, misal `Ihsan Baihaqi`, kecuali loginnya gak pakai E-Mail jadi username nya `ihsan123`.
