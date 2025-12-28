@@ -14,146 +14,8 @@ npm run dev
 
 `http://localhost:3000/` - Buat Jalankan Frontend.
 
-`http://localhost:8000/` - Buat Jalankan Backend.
+`http://localhost:8000/api` - Buat Jalankan Backend.
 
-### Url yang dipanggil untuk react
-
-- POST http://localhost/Hmmi-Community/backend/public/api/auth/login
-- GET http://localhost/Hmmi-Community/backend/public/api/auth/me
-- Header:
-- Authorization: TOKEN
-
-### Posisi Pemanggilan
-
-- User klik Login (React)
-- ↓
-- React (fetch / axios)
-- ↓
-- http://localhost/Hmmi-Community/backend/public/api/auth/login
-- ↓
-- index.php (single entry)
-- ↓
-- api/auth/login.php
-- ↓
-- response JSON balik ke React
-
-## Contoh PANGGIL LOGIN di React
-
-### Misalnya di : frontend/src-modern/pages/Login.jsx
-
-```js
-import axios from "axios";
-
-export default function Login() {
-  const handleLogin = async () => {
-    const response = await axios.post(
-      "http://localhost/Hmmi-Community/backend/public/api/auth/login",
-      {
-        email: "test@mail.com",
-        password: "123456",
-      }
-    );
-
-    // simpan token
-    localStorage.setItem("token", response.data.token);
-  };
-
-  return <button onClick={handleLogin}>Login</button>;
-}
-```
-
-### Contoh PANGGIL /me (SETELAH LOGIN)
-
-```js
-import axios from "axios";
-import { useEffect } from "react";
-
-export default function Profile() {
-  useEffect(() => {
-    axios
-      .get("http://localhost/Hmmi-Community/backend/public/api/auth/me", {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      })
-      .then((res) => {
-        console.log(res.data.user);
-      });
-  }, []);
-
-  return <div>Profile</div>;
-}
-```
-
-- 📌 Header Authorization DIKIRIM DARI REACT
-
-### Form login yang di minta backend
-
-- email
-- password
-
-### logic register dan login sudah diperbaiki
-
-- bisa dikirim lewat form html biasa ( no js ) :
-
-```html
-<form
-  method="POST"
-  action="http://localhost/Hmmi-Community/backend/public/api/auth/login"
->
-  <input type="email" name="email" placeholder="Email" required />
-  <input type="password" name="password" placeholder="Password" required />
-  <button type="submit">Login</button>
-</form>
-```
-
-- bisa juga dikirim lewat html + js (fetch), contoh :
-
-```html
-<form id="loginForm">
-  <input id="email" type="email" />
-  <input id="password" type="password" />
-  <button>Login</button>
-</form>
-
-<script>
-  document.getElementById("loginForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const res = await fetch(
-      "http://localhost/Hmmi-Community/backend/public/api/auth/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email.value,
-          password: password.value,
-        }),
-      }
-    );
-
-    const data = await res.json();
-    console.log(data);
-  });
-</script>
-```
-
-- bisa juga dari react/vite, contoh :
-
-```js
-await fetch(import.meta.env.VITE_API_URL + "/auth/login", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    email,
-    password,
-  }),
-});
-```
 
 ## Route Pada React
 
@@ -172,16 +34,50 @@ await fetch(import.meta.env.VITE_API_URL + "/auth/login", {
 - Membuat Tampilan Dashboard
 - Responsive Dashboard
 
-> Belum buat responsif ntar aja,
+### struktur folder backend saat ini
 
-> Dahlah capek mikirin konsepnya.
+```
+backend/
+├── api/                           # Semua endpoint API
+│   ├── admin/                     # Endpoint khusus admin
+│   │   └── users.php              # GET: List semua users (admin only)
+│   ├── auth/                      # Endpoint authentication
+│   │   ├── login.php              # POST: Login user, generate token
+│   │   ├── logout.php             # POST: Logout, invalidate token
+│   │   ├── me.php                 # GET: Get current user info (protected)
+│   │   └── register.php           # POST: Register user baru
+│   ├── user/                      # Endpoint user management
+│   │   └── profile.php            # GET/PUT: Get/update user profile (protected)
+│   └── health.php                 # GET: Health check API (public)
+│
+├── config/                        # Konfigurasi aplikasi
+│   ├── cors.php                   # CORS headers & preflight handling
+│   └── database.php               # Koneksi PDO ke MySQL
+│
+├── middleware/                    # Middleware untuk request processing
+│   └── auth.php                   # Validasi token & role-based access
+│
+├── public/                        # Entry point aplikasi (document root)
+│   ├── .htaccess                  # URL rewriting (Apache)
+│   └── index.php                  # Router utama (single entry point)
+│
+├── .env                           # Environment variables (DB credentials)
+└── .gitignore                     # File yang di-ignore oleh Git
+```
 
----
+### Middleware Flow:
 
-> wkwk thanks, untuk tampilan responsif bisa di contoh dari template. ini tampilan nya gak ngambil dari template? ini bikin sendiri?
+- middleware/auth.php → Gatekeeper semua endpoint protected
+- Cek token di header
+- Validasi di database
+- Cek expiry time
+- Return user data jika valid
+- Auto response 401 jika invalid
 
----
+### Role-based Access:
 
-> Sidebar template nya gk bisa scroll,Ini template dari telegram aku modif dikit
-> update readme
-> 
+- User: Bisa akses /api/user/profile.php
+- Admin: Bisa akses semua, termasuk /api/admin/users.php
+
+> ini kenapa lama kali masuk dashboard nya padahal masuk nya dari login
+![alt text](image.png)

@@ -1,5 +1,7 @@
 <?php
+// backend/api/auth/login.php
 require_once __DIR__ . "/../../config/database.php";
+require_once __DIR__ . "/../../config/cors.php";
 
 /**
  * AMBIL BODY (JSON / FORM)
@@ -18,7 +20,10 @@ if (empty($data)) {
 
 if (empty($data)) {
     http_response_code(400);
-    echo json_encode(["message" => "Body kosong"]);
+    echo json_encode([
+        "success" => false,
+        "message" => "Request body kosong"
+    ]);
     exit;
 }
 
@@ -27,7 +32,10 @@ if (empty($data)) {
  */
 if (empty($data['email']) || empty($data['password'])) {
     http_response_code(422);
-    echo json_encode(["message" => "Email & password wajib"]);
+    echo json_encode([
+        "success" => false,
+        "message" => "Email & password wajib"
+    ]);
     exit;
 }
 
@@ -36,12 +44,14 @@ if (empty($data['email']) || empty($data['password'])) {
  */
 $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
 $stmt->execute([$data['email']]);
-
 $user = $stmt->fetch();
 
 if (!$user) {
     http_response_code(401);
-    echo json_encode(["message" => "Email tidak ditemukan"]);
+    echo json_encode([
+        "success" => false,
+        "message" => "Email atau password salah"
+    ]);
     exit;
 }
 
@@ -50,7 +60,10 @@ if (!$user) {
  */
 if (!password_verify($data['password'], $user['password'])) {
     http_response_code(401);
-    echo json_encode(["message" => "Password salah"]);
+    echo json_encode([
+        "success" => false,
+        "message" => "Email atau password salah"
+    ]);
     exit;
 }
 
@@ -58,16 +71,26 @@ if (!password_verify($data['password'], $user['password'])) {
  * GENERATE TOKEN SAAT LOGIN
  */
 $token = bin2hex(random_bytes(32));
+$expiresAt = date('Y-m-d H:i:s', strtotime('+7 days')); // Token berlaku 7 hari
 
-$stmt = $pdo->prepare("UPDATE users SET api_token = ? WHERE id = ?");
-$stmt->execute([$token, $user['id']]);
+// Update token dan expiry time
+$stmt = $pdo->prepare("
+    UPDATE users 
+    SET api_token = ?, token_expires_at = ? 
+    WHERE id = ?
+");
+$stmt->execute([$token, $expiresAt, $user['id']]);
 
 echo json_encode([
+    "success" => true,
     "message" => "Login berhasil",
     "token"   => $token,
-    "user" => [
+    "expires_at" => $expiresAt,
+    "data" => [
         "id" => $user['id'],
         "username" => $user['username'],
-        "email" => $user['email']
+        "email" => $user['email'],
+        "role" => $user['role']
     ]
 ]);
+?>
