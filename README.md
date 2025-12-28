@@ -16,7 +16,6 @@ npm run dev
 
 `http://localhost:8000/api` - Buat Jalankan Backend.
 
-
 ## Route Pada React
 
 ---
@@ -80,6 +79,6 @@ backend/
 - Admin: Bisa akses semua, termasuk /api/admin/users.php
 
 > ini kenapa lama kali masuk dashboard nya padahal masuk nya dari login
-![alt text](image.png)
+> ![alt text](image.png)
 
-> cek database update
+> Itu karena perubahan endpoint yang awalnya `user` menjadi `username` di `me.php`
