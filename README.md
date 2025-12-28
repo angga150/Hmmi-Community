@@ -79,6 +79,11 @@ backend/
 - Admin: Bisa akses semua, termasuk /api/admin/users.php
 
 > ini kenapa lama kali masuk dashboard nya padahal masuk nya dari login
-> ![alt text](image.png)
 
 > Itu karena perubahan endpoint yang awalnya `user` menjadi `username` di `me.php`
+
+### Saran
+
+---
+
+username gak perlu UNIQ sih, boleh sama, yang harus beda itu Email, karena kan Login nya pakai E-Mail, jadi username bisa buat identitas nama lengkap anggota, misal `Ihsan Baihaqi`, kecuali loginnya gak pakai E-Mail tetapi username `ihsan123`.
