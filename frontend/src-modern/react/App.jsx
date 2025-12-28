@@ -9,6 +9,7 @@ import {
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import Dashboard from "./components/Dashboard";
+import LogoutPage from "./components/LogoutPage";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -20,6 +21,11 @@ function App() {
       setToken(savedToken);
     }
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+  };
 
   return (
     <Router>
@@ -44,6 +50,12 @@ function App() {
         <Route
           path="/register"
           element={token ? <Navigate to="/dashboard" /> : <RegisterForm />}
+        />
+
+        {/* Logout */}
+        <Route
+          path="/logout"
+          element={<LogoutPage onLogout={handleLogout} />}
         />
 
         {/* DASHBOARD */}
