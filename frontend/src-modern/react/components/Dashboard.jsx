@@ -201,7 +201,7 @@ function Dashboard({ onLogout }) {
         {/* Sidebar */}
         <Sidebar
           user={user}
-          collapsed={isMobile ? sidebarCollapsed : false}
+          collapsed={isMobile ? sidebarCollapsed : sidebarCollapsed}
           onToggle={handleToggleSidebar}
           onLogout={() => {
             localStorage.removeItem("token");

@@ -12,7 +12,7 @@ function Sidebar({ user, collapsed, onToggle, onLogout }) {
   return (
     <>
       {/* Overlay untuk mobile */}
-      {collapsed && (
+      {!collapsed && (
         <div
           className="d-lg-none position-fixed vh-100 vw-100 bg-dark bg-opacity-50"
           style={{ zIndex: 999 }}
