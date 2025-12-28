@@ -114,7 +114,12 @@ function Dashboard({ onLogout }) {
           },
         });
 
-        setUser(res.data.user);
+        if (res.data.success) {
+          setUser(res.data.data.username);
+        } else {
+          setError(true);
+          setMsg(res.data.message || "Not authenticated");
+        }
       } catch (err) {
         setError(true);
         setMsg(err.response?.data?.message || "Not authenticated");
