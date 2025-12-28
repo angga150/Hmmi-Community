@@ -81,3 +81,5 @@ backend/
 
 > ini kenapa lama kali masuk dashboard nya padahal masuk nya dari login
 ![alt text](image.png)
+
+> cek database update
