@@ -115,7 +115,7 @@ function Dashboard({ onLogout }) {
         });
 
         if (res.data.success) {
-          setUser(res.data.data.username);
+          setUser(res.data.data);
         } else {
           setError(true);
           setMsg(res.data.message || "Not authenticated");
