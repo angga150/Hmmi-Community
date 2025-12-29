@@ -171,20 +171,15 @@ backend/
 - User: Bisa akses /api/user/profile.php
 - Admin: Bisa akses semua, termasuk /api/admin/users.php
 
-> ini kenapa lama kali masuk dashboard nya padahal masuk nya dari login
-
-> Itu karena perubahan endpoint yang awalnya `user` menjadi `username` di `me.php`
-
-### Saran
-
 ---
 
-username gak perlu UNIQ sih, boleh sama, yang harus beda itu Email, karena kan Login nya pakai E-Mail, jadi username bisa buat identitas nama lengkap anggota, misal `Ihsan Baihaqi`, kecuali loginnya gak pakai E-Mail jadi username nya `ihsan123`.
+> untuk username user nya itu rencananya sih dibikin unique trus nanti di tambah name sebagai nama lengkap, tapi untuk sekarang gitu aja lah wkwk. 
 
----
+> ihsan: ooh, oke
 
-> untuk username user nya itu rencananya sih dibikin unique trus nanti di tambah name sebagai nama lengkap, tapi untuk sekarang gitu aja lah wkwk
+> untuk pertanyaan halaman admin saya user dipisah gak? mungkin gak usah di pisah tapi untuk access nya yang di cek. contoh di sidebar -> tombol anggota tuh  kan hanya bisa di lihat oleh admin kalau bukan admin maka tombol nya tidak ada gitu. 
 
-> untuk pertanyaan halaman admin saya user dipisah gak? mungkin gak usah di pisah tapi untuk access nya yang di cek. contoh di sidebar -> tombol anggota tuh  kan hanya bisa di lihat oleh admin kalau bukan admin maka tombol nya tidak ada gitu 
+> ihsan: emang rencananya aku gitu, gk perlu dipisahkan user/adminnya cuma pakai logika fitur tampil aja. `status == "admin" ? <admin/> : <user/>`
+
 
 > untuk sistem checkin nya belum aku testing
