@@ -127,7 +127,7 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
           user={user}
           sidebarActive={sidebarActive}
           setSidebarActive={setSidebarActive}
-          collapsed={isMobile ? sidebarCollapsed : sidebarCollapsed}
+          collapsed={isMobile ? !sidebarCollapsed : sidebarCollapsed}
           onToggle={handleToggleSidebar}
           onLogout={() => {
             localStorage.removeItem("token");
@@ -146,7 +146,7 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
         >
           {/* Navbar */}
           <Navbar
-            collapsed={isMobile ? sidebarCollapsed : sidebarCollapsed}
+            collapsed={isMobile ? !sidebarCollapsed : sidebarCollapsed}
             onToggle={handleToggleSidebar}
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
