@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   FaChevronDown,
   FaChevronUp,
@@ -12,7 +13,7 @@ import {
   FaCube,
 } from "react-icons/fa";
 
-function ToolsMenu() {
+function ToolsMenu({ sidebarActive, setSidebarActive }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -91,9 +92,12 @@ function ToolsMenu() {
           <ul className="nav flex-column">
             {menuItems.map((item) => (
               <li key={item.id} className="nav-item mb-2">
-                <a
+                <Link
                   className="nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary hover-bg-opacity-10 rounded py-2"
-                  href={item.path}
+                  to={`/tools/${item.path}`}
+                  onClick={() =>
+                    setSidebarActive(item.name.toLowerCase().replace(" ", "-"))
+                  }
                   style={{
                     fontSize: "0.875rem",
                     paddingLeft: "1.5rem",
@@ -104,7 +108,7 @@ function ToolsMenu() {
                     {item.icon}
                   </span>
                   <span>{item.name}</span>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

@@ -16,6 +16,7 @@ import Blackbox from "./components/Tools/Blackbox";
 function App() {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [sidebarActive, setSidebarActive] = useState("meetings");
 
   // ambil token saat app load
   useEffect(() => {
@@ -83,7 +84,11 @@ function App() {
           path="/dashboard"
           element={
             token ? (
-              <Dashboard onLogout={handleLogout} />
+              <Dashboard
+                sidebarActive={sidebarActive}
+                setSidebarActive={setSidebarActive}
+                onLogout={handleLogout}
+              />
             ) : (
               <Navigate to="/login" replace />
             )

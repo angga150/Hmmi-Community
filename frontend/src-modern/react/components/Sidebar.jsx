@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   FaCalendarAlt,
   FaUsers,
@@ -8,7 +9,14 @@ import {
 } from "react-icons/fa";
 import ToolsMenu from "./ToolsMenu"; // Import komponen ToolsMenu
 
-function Sidebar({ user, collapsed, onToggle, onLogout }) {
+function Sidebar({
+  user,
+  sidebarActive,
+  setSidebarActive,
+  collapsed,
+  onToggle,
+  onLogout,
+}) {
   return (
     <>
       {/* Overlay untuk mobile */}
@@ -110,49 +118,54 @@ function Sidebar({ user, collapsed, onToggle, onLogout }) {
               <ul className="nav flex-column">
                 {/* Main Navigation */}
                 <li className="nav-item mb-2">
-                  <a
+                  <Link
                     className="nav-link d-flex align-items-center text-white text-opacity-75 active bg-white bg-opacity-10 rounded py-2"
-                    href="#"
+                    to="#"
+                    onClick={() => setSidebarActive("meetings")}
                   >
                     <FaCalendarAlt className="me-3" />
                     <span>Jadwal Pertemuan</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item mb-2">
-                  <a
+                  <Link
                     className="nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary hover-bg-opacity-10 rounded py-2"
-                    href="#"
+                    to="#"
+                    onClick={() => setSidebarActive("members")}
                   >
                     <FaUsers className="me-3" />
                     <span>Anggota</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item mb-2">
-                  <a
+                  <Link
                     className="nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary hover-bg-opacity-10 rounded py-2"
-                    href="#"
+                    to="#"
+                    onClick={() => setSidebarActive("statistics")}
                   >
                     <FaChartLine className="me-3" />
                     <span>Statistik</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item mb-2">
-                  <a
+                  <Link
                     className="nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary hover-bg-opacity-10 rounded py-2"
-                    href="#"
+                    to="#"
+                    onClick={() => setSidebarActive("reports")}
                   >
                     <FaFileAlt className="me-3" />
                     <span>Laporan</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item mb-2">
-                  <a
+                  <Link
                     className="nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary hover-bg-opacity-10 rounded py-2"
-                    href="#"
+                    to="#"
+                    onClick={() => setSidebarActive("settings")}
                   >
                     <FaCog className="me-3" />
                     <span>Pengaturan</span>
-                  </a>
+                  </Link>
                 </li>
 
                 {/* Separator */}
@@ -160,7 +173,10 @@ function Sidebar({ user, collapsed, onToggle, onLogout }) {
 
                 {/* Tools Menu Component */}
                 <li className="nav-item mb-2">
-                  <ToolsMenu />
+                  <ToolsMenu
+                    sidebarActive={sidebarActive}
+                    setSidebarActive={setSidebarActive}
+                  />
                 </li>
               </ul>
             </nav>
