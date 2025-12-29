@@ -22,7 +22,7 @@ npm run dev
 
 - Panggil `localhost:3000/` untuk menjalankan.
 - Link otomatis mengarahkan ke `localhost:3000/login` untuk melakukan login.
-- Route yang masih tersedia `/login`, `/register` & `/dashboard`.
+- Route yang masih tersedia `/login`, `/register`, `/dashboard` & `/logout`.
 
 ## Redesain Tampilan
 
