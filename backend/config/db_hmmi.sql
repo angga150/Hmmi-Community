@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 29, 2025 at 04:26 PM
+-- Generation Time: Dec 29, 2025 at 06:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -44,7 +44,13 @@ CREATE TABLE `attendance_sessions` (
   `id` int(11) NOT NULL,
   `title` varchar(64) NOT NULL,
   `event_date` date DEFAULT NULL,
+  `event_id` int(11) DEFAULT NULL,
+  `meeting_id` int(11) DEFAULT NULL,
   `unique_code` varchar(64) DEFAULT NULL,
+  `expires_at` datetime DEFAULT NULL,
+  `max_attendees` int(11) DEFAULT NULL,
+  `status` varchar(16) DEFAULT 'active',
+  `location` varchar(64) DEFAULT NULL,
   `created_by` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -60,7 +66,7 @@ CREATE TABLE `events` (
   `title` varchar(64) NOT NULL,
   `description` varchar(255) NOT NULL,
   `event_date` datetime NOT NULL,
-  `status` varchar(64) NOT NULL DEFAULT 'Upcoming',
+  `status` enum('upcoming','ongoing','completed','cancelled','postponed') DEFAULT 'upcoming',
   `place` varchar(64) DEFAULT NULL,
   `created_by` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -77,8 +83,8 @@ CREATE TABLE `meetings` (
   `id` int(11) NOT NULL,
   `title` varchar(64) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `meeting_date` datetime DEFAULT NULL,
-  `status` varchar(64) NOT NULL DEFAULT 'Upcoming',
+  `event_date` datetime DEFAULT NULL,
+  `status` enum('upcoming','ongoing','completed','cancelled','postponed') DEFAULT 'upcoming',
   `place` varchar(64) DEFAULT NULL,
   `created_by` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -119,20 +125,25 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `api_token`,
 -- Indexes for table `attendance_records`
 --
 ALTER TABLE `attendance_records`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `attendance_records_ibfk_1` (`session_id`),
+  ADD KEY `attendance_records_ibfk_2` (`user_id`);
 
 --
 -- Indexes for table `attendance_sessions`
 --
 ALTER TABLE `attendance_sessions`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `event_id` (`event_id`),
+  ADD KEY `meeting_id` (`meeting_id`),
+  ADD KEY `attendance_sessions_ibfk_3` (`created_by`);
 
 --
 -- Indexes for table `events`
 --
 ALTER TABLE `events`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `created_by` (`created_by`);
+  ADD KEY `events_ibfk_1` (`created_by`);
 
 --
 -- Indexes for table `meetings`
@@ -187,16 +198,31 @@ ALTER TABLE `users`
 --
 
 --
+-- Constraints for table `attendance_records`
+--
+ALTER TABLE `attendance_records`
+  ADD CONSTRAINT `attendance_records_ibfk_1` FOREIGN KEY (`session_id`) REFERENCES `attendance_sessions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `attendance_records_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `attendance_sessions`
+--
+ALTER TABLE `attendance_sessions`
+  ADD CONSTRAINT `attendance_sessions_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `attendance_sessions_ibfk_2` FOREIGN KEY (`meeting_id`) REFERENCES `meetings` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `attendance_sessions_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `events`
 --
 ALTER TABLE `events`
-  ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `meetings`
 --
 ALTER TABLE `meetings`
-  ADD CONSTRAINT `created_by` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `created_by` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
