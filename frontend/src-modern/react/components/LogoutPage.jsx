@@ -1,11 +1,31 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function LogoutPage({ onLogout }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    onLogout();
+    const fetchMe = async () => {
+      try {
+        const res = await axios.post("/auth/logout", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+
+        if (res.data.success) {
+          setUser(res.data.message);
+        } else {
+          console.log(res);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+      onLogout();
+    };
+
+    fetchMe();
 
     navigate("/login", { replace: true });
   }, [onLogout, navigate]);

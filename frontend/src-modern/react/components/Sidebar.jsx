@@ -184,13 +184,13 @@ function Sidebar({
           <div style={{ flexShrink: 0 }}>
             {/* Logout Button */}
             <div className="p-3 border-top border-white border-opacity-10">
-              <button
+              <Link
                 className="btn btn-outline-danger w-100 d-flex align-items-center justify-content-center"
-                onClick={onLogout}
+                to="/logout"
               >
                 <FaSignOutAlt />
                 <span className="ms-2">Keluar</span>
-              </button>
+              </Link>
             </div>
           </div>
         </div>

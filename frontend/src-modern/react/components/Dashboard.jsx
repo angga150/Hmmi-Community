@@ -17,7 +17,6 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const [isMobile, setIsMobile] = useState(false);
-  console.log(sidebarActive);
   // Deteksi ukuran layar
   useEffect(() => {
     const checkMobile = () => {
@@ -75,7 +74,7 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
       try {
         const res = await axios.get("/auth/me", {
           headers: {
-            Authorization: `${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
 
@@ -84,15 +83,14 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
         } else {
           setError(true);
           setMsg(res.data.message || "Not authenticated");
+          navigate("/logout");
         }
       } catch (err) {
         setError(true);
         setMsg(err.response?.data?.message || "Not authenticated");
 
         // auto logout jika token invalid
-        // localStorage.removeItem("token");
-        // onLogout();
-        // navigate("/login");
+        navigate("/logout");
       }
     };
 
