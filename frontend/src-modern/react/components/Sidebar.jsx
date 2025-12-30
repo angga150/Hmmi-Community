@@ -58,17 +58,15 @@ function Sidebar({
                 <img
                   src={
                     user?.avatar ||
-                    `https://ui-avatars.com/api/?name=${user?.username || user?.name}&background=fff&color=4361ee`
+                    `https://ui-avatars.com/api/?name=${user?.username}&background=fff&color=4361ee`
                   }
-                  alt={user?.name}
+                  alt={user?.username}
                   className="rounded-circle border border-2 border-white border-opacity-25"
                   style={{ width: "45px", height: "45px", objectFit: "cover" }}
                 />
 
                 <div className="ms-3">
-                  <h6 className="mb-0 fw-semibold">
-                    {user?.username || user?.name}
-                  </h6>
+                  <h6 className="mb-0 fw-semibold">{user?.username}</h6>
                   <small
                     className="text-white text-opacity-75 d-block"
                     style={{ fontSize: "0.75rem" }}

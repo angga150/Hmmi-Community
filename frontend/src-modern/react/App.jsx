@@ -80,7 +80,7 @@ function App() {
         />
 
         {/* Test API */}
-        <Route path="/test" element={<TestApi />} />
+        <Route path="/testapi" element={<TestApi />} />
 
         {/* DASHBOARD */}
         <Route

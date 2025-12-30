@@ -26,6 +26,16 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      "/admin": {
+        target: "http://localhost:8000/api/",
+        changeOrigin: true,
+        secure: false,
+      },
+      "/user": {
+        target: "http://localhost:8000/api/",
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
 
