@@ -10,6 +10,8 @@ import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import Dashboard from "./components/Dashboard";
 import LogoutPage from "./components/LogoutPage";
+// Test ApiKey
+import TestApi from "./components/TestApi";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -76,6 +78,9 @@ function App() {
           path="/logout"
           element={<LogoutPage onLogout={handleLogout} />}
         />
+
+        {/* Test API */}
+        <Route path="/test" element={<TestApi />} />
 
         {/* DASHBOARD */}
         <Route

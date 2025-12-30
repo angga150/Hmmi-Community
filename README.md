@@ -22,7 +22,11 @@ npm run dev
 
 - Panggil `localhost:3000/` untuk menjalankan.
 - Link otomatis mengarahkan ke `localhost:3000/login` untuk melakukan login.
-- Route yang masih tersedia `/login`, `/register`, `/dashboard` & `/logout`.
+- Route yang sudah tersedia saat ini :
+  - `/login`
+  - `/register`
+  - `/dashboard`
+  - `/logout`
 
 ## Redesain Tampilan
 
@@ -173,13 +177,12 @@ backend/
 
 ---
 
-> untuk username user nya itu rencananya sih dibikin unique trus nanti di tambah name sebagai nama lengkap, tapi untuk sekarang gitu aja lah wkwk. 
+> untuk username user nya itu rencananya sih dibikin unique trus nanti di tambah name sebagai nama lengkap, tapi untuk sekarang gitu aja lah wkwk.
 
 > ihsan: ooh, oke
 
-> untuk pertanyaan halaman admin saya user dipisah gak? mungkin gak usah di pisah tapi untuk access nya yang di cek. contoh di sidebar -> tombol anggota tuh  kan hanya bisa di lihat oleh admin kalau bukan admin maka tombol nya tidak ada gitu. 
+> untuk pertanyaan halaman admin saya user dipisah gak? mungkin gak usah di pisah tapi untuk access nya yang di cek. contoh di sidebar -> tombol anggota tuh kan hanya bisa di lihat oleh admin kalau bukan admin maka tombol nya tidak ada gitu.
 
 > ihsan: emang rencananya aku gitu, gk perlu dipisahkan user/adminnya cuma pakai logika fitur tampil aja. `status == "admin" ? <admin/> : <user/>`
-
 
 > untuk sistem checkin nya belum aku testing
