@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Sidebar from "./Sidebar";
+import Sidebar from "./SidebarView/Main";
 import Navbar from "./Navbar";
 import MeetingView from "./MeetingView/Main";
 // Tools
@@ -77,20 +77,25 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
+
         if (res.data.success) {
           setUser(res.data.data);
         } else {
           setError(true);
-          setMsg(res.data.message || "Profile Not authenticated");
+          setMsg(res.data.message || "Not authenticated");
           setTimeout(() => {
             navigate("/logout");
           }, 3000);
         }
       } catch (err) {
-        setMsg(err.response?.data?.message || "Profile Not authenticated");
+        setError(true);
+        setMsg(err.response?.data?.message || "Not authenticated");
+        // auto logout jika token invalid
+        setTimeout(() => {
+          navigate("/logout");
+        }, 3000);
       }
     };
-
     const fetchMe = async () => {
       try {
         const res = await axios.get("/auth/me", {

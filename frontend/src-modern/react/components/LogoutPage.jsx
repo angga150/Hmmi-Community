@@ -15,19 +15,17 @@ function LogoutPage({ onLogout }) {
         });
 
         if (res.data.success) {
-          setUser(res.data.message);
+          navigate("/login", { replace: true });
         } else {
           console.log(res);
         }
       } catch (err) {
         console.log(err);
       }
-      onLogout();
     };
 
     fetchMe();
-
-    navigate("/login", { replace: true });
+    onLogout();
   }, [onLogout, navigate]);
 
   return (

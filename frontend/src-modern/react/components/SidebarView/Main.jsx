@@ -7,7 +7,9 @@ import {
   FaCog,
   FaSignOutAlt,
 } from "react-icons/fa";
-import ToolsMenu from "./ToolsMenu"; // Import komponen ToolsMenu
+import SidebarDashboard from "./SidebarDashboard"; // Import komponen
+import AdminMenu from "./SidebarAdmin"; // Import komponen
+import ToolsMenu from "./SidebarTools"; // Import komponen
 
 function Sidebar({
   user,
@@ -78,7 +80,7 @@ function Sidebar({
                       className="badge bg-white bg-opacity-10 text-white fw-normal"
                       style={{ fontSize: "0.7rem" }}
                     >
-                      Anggota Aktif
+                      {user.role == "admin" ? "Administrator" : "Anggota Aktif"}
                     </span>
                   </div>
                 </div>
@@ -115,45 +117,40 @@ function Sidebar({
             <nav className="p-3">
               <ul className="nav flex-column">
                 {/* Main Navigation */}
+                {/* Dashboard Menu Component */}
                 <li className="nav-item mb-2">
-                  <Link
-                    className={`nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary ${sidebarActive == "meetings" ? "active" : ""} rounded py-2`}
-                    onClick={() => setSidebarActive("meetings")}
-                    to="/dashboard"
-                  >
-                    <FaCalendarAlt className="me-3" />
-                    <span>Jadwal Pertemuan</span>
-                  </Link>
+                  <SidebarDashboard
+                    sidebarActive={sidebarActive}
+                    setSidebarActive={setSidebarActive}
+                  />
                 </li>
+
+                {/* Separator */}
+
+                {user.role === "admin" ? (
+                  <>
+                    <div className="my-2 border-top border-white border-opacity-10"></div>
+                    <li className="nav-item mb-2">
+                      <AdminMenu
+                        sidebarActive={sidebarActive}
+                        setSidebarActive={setSidebarActive}
+                      />
+                    </li>
+                  </>
+                ) : (
+                  <></>
+                )}
+                {/* Separator */}
+                <div className="my-2 border-top border-white border-opacity-10"></div>
+                {/* Tools Menu Component */}
                 <li className="nav-item mb-2">
-                  <Link
-                    className={`nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary ${sidebarActive == "members" ? "active" : ""} rounded py-2`}
-                    onClick={() => setSidebarActive("members")}
-                    to="/dashboard"
-                  >
-                    <FaUsers className="me-3" />
-                    <span>Anggota</span>
-                  </Link>
+                  <ToolsMenu
+                    sidebarActive={sidebarActive}
+                    setSidebarActive={setSidebarActive}
+                  />
                 </li>
-                <li className="nav-item mb-2">
-                  <Link
-                    className={`nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary ${sidebarActive == "statistics" ? "active" : ""} rounded py-2`}
-                    to="/dashboard"
-                    onClick={() => setSidebarActive("statistics")}
-                  >
-                    <FaChartLine className="me-3" />
-                    <span>Statistik</span>
-                  </Link>
-                </li>
-                <li className="nav-item mb-2">
-                  <Link
-                    className={`nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary ${sidebarActive == "reports" ? "active" : ""} rounded py-2`}
-                    onClick={() => setSidebarActive("reports")}
-                  >
-                    <FaFileAlt className="me-3" />
-                    <span>Laporan</span>
-                  </Link>
-                </li>
+
+                <div className="my-2 border-top border-white border-opacity-10"></div>
                 <li className="nav-item mb-2">
                   <Link
                     className={`nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary ${sidebarActive == "settings" ? "active" : ""} rounded py-2`}
@@ -162,17 +159,6 @@ function Sidebar({
                     <FaCog className="me-3" />
                     <span>Pengaturan</span>
                   </Link>
-                </li>
-
-                {/* Separator */}
-                <div className="my-4 border-top border-white border-opacity-10"></div>
-
-                {/* Tools Menu Component */}
-                <li className="nav-item mb-2">
-                  <ToolsMenu
-                    sidebarActive={sidebarActive}
-                    setSidebarActive={setSidebarActive}
-                  />
                 </li>
               </ul>
             </nav>

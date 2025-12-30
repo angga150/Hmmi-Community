@@ -3,14 +3,8 @@ import { Link } from "react-router-dom";
 import {
   FaChevronDown,
   FaChevronUp,
-  FaImage,
-  FaMicrophone,
-  FaVideo,
-  FaFileImage,
-  FaVideoSlash,
-  FaRobot,
-  FaCode,
-  FaCube,
+  FaRegCircle,
+  FaChessQueen,
 } from "react-icons/fa";
 
 function ToolsMenu({ sidebarActive, setSidebarActive }) {
@@ -22,52 +16,14 @@ function ToolsMenu({ sidebarActive, setSidebarActive }) {
 
   const menuItems = [
     {
-      id: 1,
-      name: "Text 2 Image",
-      icon: <FaImage />,
-      path: "text-to-image",
+      name: "Members",
+      icon: <FaRegCircle />,
+      path: "members",
     },
     {
-      id: 2,
-      name: "Text 2 Speech",
-      icon: <FaMicrophone />,
-      path: "text-to-speech",
-    },
-    {
-      id: 3,
-      name: "Text 2 Video",
-      icon: <FaVideo />,
-      path: "text-to-video",
-    },
-    {
-      id: 4,
-      name: "Image 2 Text",
-      icon: <FaFileImage />,
-      path: "image-to-text",
-    },
-    {
-      id: 5,
-      name: "Image 2 Video",
-      icon: <FaVideoSlash />,
-      path: "image-to-video",
-    },
-    {
-      id: 6,
-      name: "AI Chat GPT",
-      icon: <FaRobot />,
-      path: "ai-chatgpt",
-    },
-    {
-      id: 7,
-      name: "AI Deepseek",
-      icon: <FaCode />,
-      path: "ai-deepseek",
-    },
-    {
-      id: 8,
-      name: "AI BlackBox",
-      icon: <FaCube />,
-      path: "ai-blackbox",
+      name: "Meetings",
+      icon: <FaRegCircle />,
+      path: "meetings",
     },
   ];
 
@@ -80,8 +36,8 @@ function ToolsMenu({ sidebarActive, setSidebarActive }) {
         style={{ cursor: "pointer" }}
       >
         <div className="d-flex align-items-center">
-          <FaRobot className="me-3" />
-          <span className="fw-semibold">Tools Menu</span>
+          <FaChessQueen className="me-3" />
+          <span className="fw-semibold">Admin Settings</span>
         </div>
         {isOpen ? <FaChevronUp size={12} /> : <FaChevronDown size={12} />}
       </button>
@@ -94,9 +50,9 @@ function ToolsMenu({ sidebarActive, setSidebarActive }) {
               <li key={item.id} className="nav-item mb-2">
                 <Link
                   className={`nav-link ${sidebarActive == item.path ? "active" : ""} d-flex align-items-center text-white text-opacity-75 hover-bg-primary hover-bg-opacity-10 rounded py-2`}
-                  to={`/tools/${item.path}`}
+                  to={`/admin/${item.path}`}
                   onClick={() =>
-                    setSidebarActive(item.name.toLowerCase().replace(" ", "-"))
+                    setSidebarActive(item.path.toLowerCase().replace(" ", "-"))
                   }
                   style={{
                     fontSize: "0.875rem",
