@@ -26,6 +26,8 @@ $routes = [
     // Attendance
     '/api/attendance/sessions' => '../api/attendance/sessions/index.php',
     '/api/attendance/checkin/manual' => '../api/attendance/checkin/manual.php',
+    '/api/attendance/scan' => '../api/attendance/scan/index.php', 
+    '/api/attendance/qrcode' => '../api/attendance/qrcode/index.php',
     '/api/attendance/reports/session' => '../api/attendance/reports/session.php',
     
     // Health

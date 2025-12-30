@@ -203,7 +203,8 @@ switch ($method) {
                         'session_id' => $sessionId,
                         'title' => $input['title'],
                         'expires_at' => $expiresAt
-                    ]
+                    ],
+                    'qr_code_url' => '/api/attendance/qrcode/' . $uniqueCode // Endpoint baru
                 ]
             ]);
             

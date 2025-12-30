@@ -8,14 +8,6 @@ npm run setup
 npm run dev
 ```
 
-### localhost
-
----
-
-`http://localhost:3000/` - Buat Jalankan Frontend.
-
-`http://localhost:8000/api` - Buat Jalankan Backend.
-
 ## Route Pada React
 
 ---
@@ -28,137 +20,83 @@ npm run dev
   - `/dashboard`
   - `/logout`
 
-## Redesain Tampilan
+### struktur folder backend, yang belum ada tandanya belum di bikin masih plan
 
----
-
-- [Icon React Font Awesome](https://react-icons.github.io/react-icons/icons/fa/)
-- Custom CSS.
-- Membuat Tampilan Dashboard
-- Responsive Dashboard
-
-### rencana struktur folder backend, yang belum ada tandanya belum dibikin
+--- 
 
 ```
 backend/
-├── api/                           # Semua endpoint API
-│   ├── admin/                     # Endpoint khusus admin
-│   │   ├── users.php              # GET: List semua users (admin only)
-│   │   └── dashboard.php          # GET: Dashboard stats (admin only)
+├── api/                          # API Endpoints (RESTful)
+│   ├── admin/                    # Admin-only endpoints
+│   │   ├── users.php            # User management (CRUD users)
+│   │   ├── dashboard.php        # Admin dashboard statistics
+│   │   └── system.php           # System settings & maintenance
 │   │
-│   ├── auth/                      # Endpoint authentication
-│   │   ├── login.php              # POST: Login user, generate token
-│   │   ├── logout.php             # POST: Logout, invalidate token
-│   │   ├── me.php                 # GET: Get current user info (protected)
-│   │   └── register.php           # POST: Register user baru
-│   │
-│   ├── events/                    # CRUD Events Management
-│   │   ├── index.php              # GET/POST: List/Create events
-│   │   ├── [id].php               # GET/PUT/DELETE: Single event
-│   │   ├── attendance.php         # GET: Event attendance records
-│   │   └── upcoming.php           # GET: Upcoming events
-│   │
-│   ├── meetings/                  # CRUD Meetings Management
-│   │   ├── index.php              # GET/POST: List/Create meetings
-│   │   ├── [id].php               # GET/PUT/DELETE: Single meeting
-│   │   ├── attendance.php         # GET: Meeting attendance records
-│   │   └── schedule.php           # GET: Today's meetings
-│   │
-│   ├── attendance/                # Attendance System
-│   │   ├── sessions/              # Attendance Sessions Management
-│   │   │   ├── index.php          # GET/POST: List/Create sessions
-│   │   │   ├── [id].php           # GET/PUT/DELETE: Single session
-│   │   │   ├── generate.php       # POST: Generate QR code for session
-│   │   │   ├── validate.php       # POST: Validate session code
-│   │   │   └── close.php          # POST: Close/end session
+│   ├── attendance/               # Attendance system endpoints
+│   │   ├── checkin/             # Check-in methods
+│   │   │   ├── manual.php       # Manual code check-in (POST)
+│   │   │   ├── scan.php         # QR code scan check-in (POST)
+│   │   │   └── webcam.php       # Webcam-based check-in (optional)
 │   │   │
-│   │   ├── checkin/               # Check-in Endpoints
-│   │   │   ├── scan.php           # POST: QR code check-in
-│   │   │   ├── manual.php         # POST: Manual code check-in
-│   │   │   ├── verify.php         # GET: Verify check-in status
-│   │   │   └── history.php        # GET: User check-in history
+│   │   ├── qrcode/              # QR Code generation & scanning
+│   │   │   └── index.php        # Generate/display QR codes (GET)
 │   │   │
-│   │   └── reports/               # Reports & Analytics
-│   │       ├── export.php         # GET: Export PDF/Excel
-│   │       ├── stats.php          # GET: Statistics dashboard
-│   │       ├── summary.php        # GET: Summary report
-│   │       ├── user.php           # GET: User attendance report
-│   │       └── session.php        # GET: Session attendance report
+│   │   ├── reports/             # Attendance reports
+│   │   │   ├── session.php      # Session-wise report (GET)
+│   │   │   ├── user.php         # User attendance history
+│   │   │   ├── event.php        # Event attendance summary
+│   │   │   └── export.php       # Export reports (CSV/Excel)
+│   │   │
+│   │   └── sessions/            # Attendance session management
+│   │       ├── index.php        # CRUD sessions (GET/POST/PUT/DELETE)
+│   │       ├── active.php       # List active sessions only
+│   │       └── close.php        # Close/end a session
 │   │
-│   ├── user/                      # User Management
-│   │   ├── profile.php            # GET/PUT: Get/update user profile
-│   │   ├── attendance.php         # GET: User attendance history
-│   │   └── events.php             # GET: User's registered events
+│   ├── auth/                     # Authentication endpoints
+│   │   ├── login.php            # User login (POST)
+│   │   ├── register.php         # User registration (POST) - admin only
+│   │   ├── logout.php           # User logout (POST)
+│   │   ├── me.php               # Get current user info (GET)
+│   │   └── refresh.php          # Token refresh (POST)
 │   │
-│   ├── dashboard/                 # Dashboard Endpoints
-│   │   ├── overview.php           # GET: Dashboard overview data
-│   │   ├── calendar.php           # GET: Calendar events data
-│   │   └── notifications.php      # GET: User notifications
+│   ├── events/                   # Event management
+│   │   └── index.php            # CRUD events (GET/POST/PUT/DELETE)
 │   │
-│   └── health.php                 # GET: Health check API (public)
-│
-├── config/                        # Konfigurasi aplikasi
-│   ├── cors.php                   # CORS headers & preflight handling
-│   └── database.php               # Koneksi PDO ke MySQL
-│
-├── middleware/                    # Middleware untuk request processing
-│   ├── auth.php                   # Validasi token & role-based access
-│   ├── admin.php                  # Middleware untuk admin only
-│   └── validation.php             # Input validation middleware
-│
-├── utils/                         # Utility Functions
-│   ├── generators/                # Code & Data Generators
-│   │   ├── qr_generator.php       # Generate QR code images
-│   │   ├── code_generator.php     # Generate unique codes
-│   │   └── token_generator.php    # Generate secure tokens
+│   ├── meetings/                 # Meeting management
+│   │   └── index.php            # CRUD meetings (GET/POST/PUT/DELETE)
 │   │
-│   ├── exporters/                 # Export Utilities
-│   │   ├── excel_exporter.php     # Export to Excel
-│   │   ├── pdf_exporter.php       # Export to PDF
-│   │   └── csv_exporter.php       # Export to CSV
-│   │
-│   ├── validators/                # Validation Utilities
-│   │   ├── input_validator.php    # Validate user input
-│   │   ├── date_validator.php     # Validate dates
-│   │   └── file_validator.php     # Validate file uploads
-│   │
-│   ├── helpers/                   # Helper Functions
-│   │   ├── response_helper.php    # Standardized API responses
-│   │   ├── date_helper.php        # Date formatting helpers
-│   │   └── sanitizer.php          # Data sanitization
-│   │
-│   └── notifications/             # Notification System
-│       ├── email_notifier.php     # Email notifications
-│       └── push_notifier.php      # Push notifications
+│   └── user/                     # User profile endpoints
+│       ├── profile.php           # Update profile (PUT)
+│       ├── password.php          # Change password (PUT)
+│       └── attendance.php        # Get user's attendance history
 │
-├── models/                        # Data Models (optional - jika mau OOP)
-│   ├── User.php                   # User model
-│   ├── Event.php                  # Event model
-│   ├── Meeting.php                # Meeting model
-│   ├── AttendanceSession.php      # Attendance session model
-│   └── AttendanceRecord.php       # Attendance record model
+├── config/                       # Configuration files
+│   ├── cors.php                  # CORS configuration
+│   ├── database.php              # Database connection
+│   ├── env.example               # Environment variables template
+│   └── constants.php             # Application constants
 │
-├── public/                        # Entry point aplikasi (document root)
-│   ├── .htaccess                  # URL rewriting (Apache)
-│   ├── index.php                  # Router utama (single entry point)
-│   └── assets/                    # Static assets (jika ada)
-│       ├── qr_codes/              # Generated QR codes storage
-│       └── exports/               # Generated export files
+├── middleware/                   # Middleware functions
+│   ├── auth.php                  # Authentication middleware
+│   ├── admin.php                 # Admin role middleware
+│   ├── validation.php            # Input validation
+│   └── logger.php                # Request logging
 │
-├── logs/                          # Application logs
-│   ├── access.log                 # API access logs
-│   ├── error.log                  # Error logs
-│   └── attendance.log             # Attendance activity logs
+├── public/                       # Publicly accessible files
+│   ├── .htaccess                 # Apache rewrite rules
+│   ├── index.php                 # Main router/entry point
+│   └── assets/                   # Static assets (QR codes, exports)
 │
-├── temp/                          # Temporary files
-│   ├── cache/                     # Cache files
-│   └── uploads/                   # Temporary uploads
+├── utils/                        # Utility classes/functions
+│   ├── code_generator.php        # Generate unique codes
+│   ├── response_helper.php       # Standard API response format
+│   ├── qr_generator.php          # QR code generation utility
+│   ├── validator.php             # Data validation helpers
+│   └── date_helper.php           # Date/time utilities
 │
-├── .env                           # Environment variables
-├── .env.example                   # Environment template
-├── .gitignore                     # Git ignore file
-├── README.md                      # Project documentation
-└── composer.json                  # PHP dependencies (jika pakai Composer)
+├── vendor/                       # Composer dependencies
+├── logs/                         # Application logs
+└── .env                          # Environment variables
 ```
 
 ### Middleware Flow:
@@ -170,19 +108,102 @@ backend/
 - Return user data jika valid
 - Auto response 401 jika invalid
 
-### Role-based Access:
 
-- User: Bisa akses /api/user/profile.php
-- Admin: Bisa akses semua, termasuk /api/admin/users.php
+## API DOKUMENTASI 📚
 
----
+--- 
 
-> untuk username user nya itu rencananya sih dibikin unique trus nanti di tambah name sebagai nama lengkap, tapi untuk sekarang gitu aja lah wkwk.
+### Meeting Manajement 
 
-> ihsan: ooh, oke
+##### Required Fiels
+- title (string, max 64 chars): Meeting name
+- description (string, max 255 chars): Meeting description
+- meeting_date (datetime): Date & time (format: YYYY-MM-DD HH:MM:SS)
+##### OPTIONAL FIELDS:
+- place (string): Location
+- status (enum): upcoming (default), ongoing, completed, cancelled
 
-> untuk pertanyaan halaman admin saya user dipisah gak? mungkin gak usah di pisah tapi untuk access nya yang di cek. contoh di sidebar -> tombol anggota tuh kan hanya bisa di lihat oleh admin kalau bukan admin maka tombol nya tidak ada gitu.
+##### Endpoints
+```js
+// 1. List meetings (with filters)
+GET /api/meetings
+GET /api/meetings?status=upcoming
+GET /api/meetings?date=2025-01-15
+GET /api/meetings?upcoming=true
 
-> ihsan: emang rencananya aku gitu, gk perlu dipisahkan user/adminnya cuma pakai logika fitur tampil aja. `status == "admin" ? <admin/> : <user/>`
+// 2. Create meeting (admin only)
+POST /api/meetings
+{
+    "title": "IT Division Meeting",
+    "description": "Website project discussion",
+    "meeting_date": "2025-01-20 14:00:00",
+    "place": "Computer Lab 1"
+}
 
-> untuk sistem checkin nya belum aku testing
+// 3. Update meeting (admin only)
+PUT /api/meetings/{id}
+{
+    "status": "completed"
+}
+
+// 4. Delete meeting (admin only)
+DELETE /api/meetings/{id}
+```
+
+### EVENTS Management
+
+##### REQUIRED FIELDS:
+- title (string): Event name
+- description (string): Event description
+- event_date (datetime): Event date & time
+
+##### OPTIONAL FIELDS:
+- place (string): Location
+- status (enum): upcoming, ongoing, completed, cancelled, postponed
+
+##### ENDPOINTS:
+```js
+// Same as meetings, endpoint: /api/events
+GET /api/events?status=upcoming
+POST /api/events
+PUT /api/events/{id}
+DELETE /api/events/{id}
+```
+
+### ATTENDANCE SYSTEM
+
+##### ADMIN: Create Attendance Session
+```js
+POST /api/attendance/sessions
+{
+    "title": "PHP Workshop Attendance",
+    "event_id": 1,        // Optional: link to event
+    "meeting_id": 1,      // Optional: link to meeting
+    "event_date": "2025-01-15",
+    "max_attendees": 50,  // Optional: participant limit
+    "expires_in_hours": 24 // Optional: code validity (default: 24h)
+}
+
+// Response includes:
+{
+    "unique_code": "ABC123XY",  // Code for manual check-in
+    "qr_data": {...}            // Data for QR code generation
+}
+```
+
+##### USER: Check-in Methods - MANUAL CHECK-IN (Enter Code)
+```js
+POST /api/attendance/checkin/manual
+{
+    "code": "ABC123XY"
+}
+```
+
+### fitur yang terbaru
+
+- create meeting, event, absensi kehadiran
+- checkin manual code
+
+> untuk scan nya belum di selesaikan harus install library dulu kalo tau coba di share
+saat ini qr_code nya masih checkin manual 
+
