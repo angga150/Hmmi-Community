@@ -378,13 +378,6 @@ function RegisterForm({}) {
                           className={`alert ${
                             badRequest ? "alert-danger" : "alert-success"
                           } mb-4 d-flex align-items-center`}
-                          // style={{
-                          //   borderLeft: `4px solid ${badRequest ? "#dc3545" : "#28a745"}`,
-                          //   backgroundColor: badRequest
-                          //     ? "rgba(220, 53, 69, 0.1)"
-                          //     : "rgba(40, 167, 69, 0.1)",
-                          // }}
-                          // udah aku buat custom CSS di bawah biar gak ribet
                         >
                           {msg.includes("berhasil") ? (
                             <FaCheckCircle className="me-2 text-success" />
@@ -397,24 +390,8 @@ function RegisterForm({}) {
 
                       <button
                         type="submit"
-                        className="btn btn-primary btn-lg w-100 py-3 fw-bold mb-3"
-                        disabled={isLoading}
-                        // style={{
-                        //   background:
-                        //     "linear-gradient(to right, #3a0ca3, #7209b7)",
-                        //   border: "none",
-                        //   transition: "all 0.3s ease",
-                        // }}
-                        // onMouseOver={(e) => {
-                        //   e.target.style.transform = "translateY(-2px)";
-                        //   e.target.style.boxShadow =
-                        //     "0 5px 15px rgba(58, 12, 163, 0.3)";
-                        // }}
-                        // onMouseOut={(e) => {
-                        //   e.target.style.transform = "translateY(0)";
-                        //   e.target.style.boxShadow = "none";
-                        // }}
-                        // udah aku buat custom CSS di bawah biar gak ribet pakai javascript
+                        className="btn btn-primary btn-lg w-100 py-3 fw-bold mb-3 disable"
+                        disabled={isLoading || passwordStrength < 50}
                       >
                         {isLoading ? (
                           <>
