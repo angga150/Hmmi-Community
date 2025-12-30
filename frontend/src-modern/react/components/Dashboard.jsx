@@ -4,6 +4,8 @@ import axios from "axios";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import MeetingView from "./MeetingView/Main";
+// Tools
+import Blackbox from "./Tools/Blackbox";
 
 function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
   const navigate = useNavigate();
@@ -15,6 +17,7 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const [isMobile, setIsMobile] = useState(false);
+  console.log(sidebarActive);
   // Deteksi ukuran layar
   useEffect(() => {
     const checkMobile = () => {
@@ -46,6 +49,24 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
     } else {
       // Di desktop, gunakan collapsed state
       setSidebarCollapsed(!sidebarCollapsed);
+    }
+  };
+
+  const getLocation = (name) => {
+    switch (name) {
+      case "meetings":
+        return "Jadwal Pertemuan";
+        break;
+      case "members":
+        return "Anggota";
+        break;
+      case "ai-blackbox":
+        return "Tools AI BlackBox";
+        break;
+
+      default:
+        return "Jadwal Pertemuan";
+        break;
     }
   };
 
@@ -146,6 +167,7 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
         >
           {/* Navbar */}
           <Navbar
+            dashboardLocation={getLocation(sidebarActive)}
             collapsed={isMobile ? !sidebarCollapsed : sidebarCollapsed}
             onToggle={handleToggleSidebar}
             searchTerm={searchTerm}
@@ -159,6 +181,15 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
           {sidebarActive === "meetings" && (
             <MeetingView user={user} searchTerm={searchTerm} />
           )}
+          {/* Member View */}
+          {sidebarActive === "members" && (
+            <div className="p-5">
+              <h2 className="pt-5">Tampilan Anggota</h2>
+            </div>
+          )}
+
+          {/* Tools */}
+          {sidebarActive === "ai-blackbox" && <Blackbox />}
         </div>
       </div>
     </div>

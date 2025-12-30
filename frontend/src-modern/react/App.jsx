@@ -10,8 +10,6 @@ import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import Dashboard from "./components/Dashboard";
 import LogoutPage from "./components/LogoutPage";
-// Tools
-import Blackbox from "./components/Tools/Blackbox";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -98,7 +96,17 @@ function App() {
         {/* TOOLS - AI Blackbox */}
         <Route
           path="/tools/ai-blackbox"
-          element={token ? <Blackbox /> : <Navigate to="/login" replace />}
+          element={
+            token ? (
+              <Dashboard
+                sidebarActive={"ai-blackbox"}
+                setSidebarActive={setSidebarActive}
+                onLogout={handleLogout}
+              />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
         />
 
         {/* Redirect root ke dashboard jika sudah login */}

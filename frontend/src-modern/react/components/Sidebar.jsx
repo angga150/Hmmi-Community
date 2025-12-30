@@ -119,9 +119,9 @@ function Sidebar({
                 {/* Main Navigation */}
                 <li className="nav-item mb-2">
                   <Link
-                    className="nav-link d-flex align-items-center text-white text-opacity-75 active bg-white bg-opacity-10 rounded py-2"
-                    to="#"
+                    className={`nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary ${sidebarActive == "meetings" ? "active" : ""} rounded py-2`}
                     onClick={() => setSidebarActive("meetings")}
+                    to="/dashboard"
                   >
                     <FaCalendarAlt className="me-3" />
                     <span>Jadwal Pertemuan</span>
@@ -129,9 +129,9 @@ function Sidebar({
                 </li>
                 <li className="nav-item mb-2">
                   <Link
-                    className="nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary hover-bg-opacity-10 rounded py-2"
-                    to="#"
+                    className={`nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary ${sidebarActive == "members" ? "active" : ""} rounded py-2`}
                     onClick={() => setSidebarActive("members")}
+                    to="/dashboard"
                   >
                     <FaUsers className="me-3" />
                     <span>Anggota</span>
@@ -139,8 +139,8 @@ function Sidebar({
                 </li>
                 <li className="nav-item mb-2">
                   <Link
-                    className="nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary hover-bg-opacity-10 rounded py-2"
-                    to="#"
+                    className={`nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary ${sidebarActive == "statistics" ? "active" : ""} rounded py-2`}
+                    to="/dashboard"
                     onClick={() => setSidebarActive("statistics")}
                   >
                     <FaChartLine className="me-3" />
@@ -149,8 +149,7 @@ function Sidebar({
                 </li>
                 <li className="nav-item mb-2">
                   <Link
-                    className="nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary hover-bg-opacity-10 rounded py-2"
-                    to="#"
+                    className={`nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary ${sidebarActive == "reports" ? "active" : ""} rounded py-2`}
                     onClick={() => setSidebarActive("reports")}
                   >
                     <FaFileAlt className="me-3" />
@@ -159,8 +158,7 @@ function Sidebar({
                 </li>
                 <li className="nav-item mb-2">
                   <Link
-                    className="nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary hover-bg-opacity-10 rounded py-2"
-                    to="#"
+                    className={`nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary ${sidebarActive == "settings" ? "active" : ""} rounded py-2`}
                     onClick={() => setSidebarActive("settings")}
                   >
                     <FaCog className="me-3" />
@@ -199,13 +197,13 @@ function Sidebar({
 
         <style jsx>{`
           .hover-bg-primary:hover {
-            background-color: rgba(69, 72, 245, 1) !important;
+            background-color: rgba(255, 255, 255, 0.07) !important;
           }
           .text-accent {
             color: #4cc9f0;
           }
           .nav-link.active {
-            background-color: rgba(77, 47, 248, 1) !important;
+            background-color: rgba(255, 255, 255, 0.2) !important;
           }
         `}</style>
       </div>

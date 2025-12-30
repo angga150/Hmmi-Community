@@ -1,6 +1,7 @@
 import { FaBars, FaPlus } from "react-icons/fa";
 
 function Navbar({
+  dashboardLocation,
   collapsed,
   onToggle,
   searchTerm,
@@ -27,7 +28,7 @@ function Navbar({
           </button>
 
           <div>
-            <h1 className="h4 fw-bold mb-0">Dashboard</h1>
+            <h1 className="h4 fw-bold mb-0">{dashboardLocation}</h1>
           </div>
 
           <div className="ms-auto d-flex align-items-center gap-2">

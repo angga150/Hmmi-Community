@@ -25,49 +25,49 @@ function ToolsMenu({ sidebarActive, setSidebarActive }) {
       id: 1,
       name: "Text 2 Image",
       icon: <FaImage />,
-      path: "/text-to-image",
+      path: "text-to-image",
     },
     {
       id: 2,
       name: "Text 2 Speech",
       icon: <FaMicrophone />,
-      path: "/text-to-speech",
+      path: "text-to-speech",
     },
     {
       id: 3,
       name: "Text 2 Video",
       icon: <FaVideo />,
-      path: "/text-to-video",
+      path: "text-to-video",
     },
     {
       id: 4,
       name: "Image 2 Text",
       icon: <FaFileImage />,
-      path: "/image-to-text",
+      path: "image-to-text",
     },
     {
       id: 5,
       name: "Image 2 Video",
       icon: <FaVideoSlash />,
-      path: "/image-to-video",
+      path: "image-to-video",
     },
     {
       id: 6,
       name: "AI Chat GPT",
       icon: <FaRobot />,
-      path: "/ai-chatgpt",
+      path: "ai-chatgpt",
     },
     {
       id: 7,
       name: "AI Deepseek",
       icon: <FaCode />,
-      path: "/ai-deepseek",
+      path: "ai-deepseek",
     },
     {
       id: 8,
       name: "AI BlackBox",
       icon: <FaCube />,
-      path: "/ai-blackbox",
+      path: "ai-blackbox",
     },
   ];
 
@@ -93,7 +93,7 @@ function ToolsMenu({ sidebarActive, setSidebarActive }) {
             {menuItems.map((item) => (
               <li key={item.id} className="nav-item mb-2">
                 <Link
-                  className="nav-link d-flex align-items-center text-white text-opacity-75 hover-bg-primary hover-bg-opacity-10 rounded py-2"
+                  className={`nav-link ${sidebarActive == item.path ? "active" : ""} d-flex align-items-center text-white text-opacity-75 hover-bg-primary hover-bg-opacity-10 rounded py-2`}
                   to={`/tools/${item.path}`}
                   onClick={() =>
                     setSidebarActive(item.name.toLowerCase().replace(" ", "-"))
