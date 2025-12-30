@@ -29,6 +29,9 @@ $routes = [
     '/api/attendance/scan' => '../api/attendance/scan/index.php', 
     '/api/attendance/qrcode' => '../api/attendance/qrcode/index.php',
     '/api/attendance/reports/session' => '../api/attendance/reports/session.php',
+
+     // User
+    '/api/user/profile' => '../api/user/profile.php',
     
     // Health
     '/api/health' => '../api/health.php',
