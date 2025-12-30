@@ -16,7 +16,7 @@ import TestApi from "./components/TestApi";
 function App() {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [sidebarActive, setSidebarActive] = useState("meetings");
+  const [sidebarActive, setSidebarActive] = useState("meetings-user");
 
   // ambil token saat app load
   useEffect(() => {

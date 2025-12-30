@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   FaChevronDown,
@@ -56,6 +56,12 @@ function ToolsMenu({ sidebarActive, setSidebarActive }) {
       path: "ai-blackbox",
     },
   ];
+
+  useEffect(() => {
+    menuItems.forEach((v, k) => {
+      if (v.path == sidebarActive && isOpen == false) setIsOpen(true);
+    });
+  }, []);
 
   return (
     <div className="tools-menu-wrapper">

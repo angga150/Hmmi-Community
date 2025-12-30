@@ -34,14 +34,20 @@ function Navbar({
           </div>
 
           <div className="ms-auto d-flex align-items-center gap-2">
-            {/* Add Meeting Button */}
-            <button
-              className="btn btn-primary d-flex align-items-center"
-              onClick={onAddMeeting}
-            >
-              <FaPlus className="me-1" />
-              <span className="d-none d-md-inline">Tambah Pertemuan</span>
-            </button>
+            {user.role === "admin" ? (
+              <>
+                {/* Add Meeting Button */}
+                <button
+                  className="btn btn-primary d-flex align-items-center"
+                  onClick={onAddMeeting}
+                >
+                  <FaPlus className="me-1" />
+                  <span className="d-none d-md-inline">Tambah Pertemuan</span>
+                </button>
+              </>
+            ) : (
+              <></>
+            )}
 
             {/* User Profile (Small) */}
             <div className="dropdown">
