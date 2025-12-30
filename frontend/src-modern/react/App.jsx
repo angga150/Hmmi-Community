@@ -98,6 +98,37 @@ function App() {
           }
         />
 
+        {/* ADMIN - Manage Members */}
+        <Route
+          path="/admin/manage-members"
+          element={
+            token ? (
+              <Dashboard
+                sidebarActive={"manage-members"}
+                setSidebarActive={setSidebarActive}
+                onLogout={handleLogout}
+              />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+        {/* ADMIN - Manage Meetings */}
+        <Route
+          path="/admin/manage-meetings"
+          element={
+            token ? (
+              <Dashboard
+                sidebarActive={"manage-meetings"}
+                setSidebarActive={setSidebarActive}
+                onLogout={handleLogout}
+              />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+
         {/* TOOLS - AI Blackbox */}
         <Route
           path="/tools/ai-blackbox"

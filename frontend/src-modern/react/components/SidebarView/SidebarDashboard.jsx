@@ -19,12 +19,12 @@ function SidebarDashboard({ sidebarActive, setSidebarActive }) {
     {
       name: "Profile",
       icon: <FaUserCog />,
-      path: "profile",
+      path: "profile-user",
     },
     {
       name: "Jadwal Pertemuan",
       icon: <FaCalendarAlt />,
-      path: "meetings",
+      path: "meetings-user",
     },
   ];
 

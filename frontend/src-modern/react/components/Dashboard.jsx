@@ -53,19 +53,22 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
 
   const getLocation = (name) => {
     switch (name) {
-      case "meetings":
+      case "profile-user":
+        return "Profile";
+
+      case "meetings-user":
         return "Jadwal Pertemuan";
-        break;
-      case "members":
-        return "Anggota";
-        break;
+
+      case "manage-members":
+        return "Pengaturan User";
+      case "manage-meetings":
+        return "Pengaturan Jadwal Pertemuan";
+
       case "ai-blackbox":
         return "Tools AI BlackBox";
-        break;
 
       default:
-        return "Jadwal Pertemuan";
-        break;
+        return "Dashboard";
     }
   };
 
@@ -207,11 +210,11 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
             }}
           />
           {/* Meeting View */}
-          {sidebarActive === "meetings" && (
+          {sidebarActive === "meetings-user" && (
             <MeetingView user={user} searchTerm={searchTerm} />
           )}
           {/* Member View */}
-          {sidebarActive === "members" && (
+          {sidebarActive === "manage-members" && (
             <div className="p-5">
               <h2 className="pt-5">Tampilan Anggota</h2>
             </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   FaChevronDown,
@@ -18,14 +18,20 @@ function ToolsMenu({ sidebarActive, setSidebarActive }) {
     {
       name: "Members",
       icon: <FaRegCircle />,
-      path: "members",
+      path: "manage-members",
     },
     {
       name: "Meetings",
       icon: <FaRegCircle />,
-      path: "meetings",
+      path: "manage-meetings",
     },
   ];
+
+  useEffect(() => {
+    menuItems.forEach((v, k) => {
+      if (v.path == sidebarActive && isOpen == false) setIsOpen(true);
+    });
+  }, []);
 
   return (
     <div className="tools-menu-wrapper">
