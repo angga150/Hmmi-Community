@@ -75,7 +75,7 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get("/user/profile", {
+        const res = await axios.get("/api/user/profile", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -101,7 +101,7 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
     };
     const fetchMe = async () => {
       try {
-        const res = await axios.get("/auth/me", {
+        const res = await axios.get("/api/auth/me", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

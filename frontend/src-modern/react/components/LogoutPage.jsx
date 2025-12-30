@@ -8,7 +8,7 @@ function LogoutPage({ onLogout }) {
   useEffect(() => {
     const fetchMe = async () => {
       try {
-        const res = await axios.post("/auth/logout", {
+        const res = await axios.post("/api/auth/logout", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

@@ -13,7 +13,7 @@ function TestApi() {
   /* =======================
      CONFIG
   ======================= */
-  const GET_URL = "/auth/logout";
+  const GET_URL = "/api/meetings";
   const POST_URL = GET_URL;
 
   const HEADERS = {
