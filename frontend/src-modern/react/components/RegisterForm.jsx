@@ -29,6 +29,10 @@ function RegisterForm({}) {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0);
 
+  function normalizeText(text) {
+    return text.replace(/\s+/g, "").toLowerCase();
+  }
+
   const calculatePasswordStrength = (pass) => {
     let strength = 0;
     if (pass.length >= 8) strength += 25;
@@ -240,7 +244,9 @@ function RegisterForm({}) {
                             className="form-control border-start-0 ps-2"
                             placeholder="Enter your username"
                             value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            onChange={(e) =>
+                              setUsername(normalizeText(e.target.value))
+                            }
                             required
                             disabled={isLoading}
                             style={{
