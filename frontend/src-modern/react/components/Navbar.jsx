@@ -1,6 +1,7 @@
 import { FaBars, FaPlus } from "react-icons/fa";
 
 function Navbar({
+  user,
   dashboardLocation,
   collapsed,
   onToggle,
@@ -8,6 +9,7 @@ function Navbar({
   onSearchChange,
   onAddMeeting,
 }) {
+  console.log(user);
   return (
     <nav
       className="navbar navbar-light bg-white shadow-sm fixed-top"
@@ -49,7 +51,7 @@ function Navbar({
                 data-bs-toggle="dropdown"
               >
                 <img
-                  src="https://ui-avatars.com/api/?name=User&background=4361ee&color=fff"
+                  src={`https://ui-avatars.com/api/?name=${user?.username}&background=4361ee&color=fff`}
                   alt="User"
                   className="rounded-circle"
                   style={{ width: "32px", height: "32px" }}

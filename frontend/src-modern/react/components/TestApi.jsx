@@ -13,7 +13,7 @@ function TestApi() {
   /* =======================
      CONFIG
   ======================= */
-  const GET_URL = "/auth/me";
+  const GET_URL = "user/profile";
   const POST_URL = GET_URL;
 
   const HEADERS = {

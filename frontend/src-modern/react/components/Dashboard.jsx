@@ -70,6 +70,27 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
   };
 
   useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await axios.get("/user/profile", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        if (res.data.success) {
+          setUser(res.data.data);
+        } else {
+          setError(true);
+          setMsg(res.data.message || "Profile Not authenticated");
+          setTimeout(() => {
+            navigate("/logout");
+          }, 3000);
+        }
+      } catch (err) {
+        setMsg(err.response?.data?.message || "Profile Not authenticated");
+      }
+    };
+
     const fetchMe = async () => {
       try {
         const res = await axios.get("/auth/me", {
@@ -79,18 +100,22 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
         });
 
         if (res.data.success) {
-          setUser(res.data.data);
+          fetchProfile();
         } else {
           setError(true);
           setMsg(res.data.message || "Not authenticated");
-          navigate("/logout");
+          setTimeout(() => {
+            navigate("/logout");
+          }, 3000);
         }
       } catch (err) {
         setError(true);
         setMsg(err.response?.data?.message || "Not authenticated");
 
         // auto logout jika token invalid
-        navigate("/logout");
+        setTimeout(() => {
+          navigate("/logout");
+        }, 3000);
       }
     };
 
@@ -165,6 +190,7 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
         >
           {/* Navbar */}
           <Navbar
+            user={user}
             dashboardLocation={getLocation(sidebarActive)}
             collapsed={isMobile ? !sidebarCollapsed : sidebarCollapsed}
             onToggle={handleToggleSidebar}
