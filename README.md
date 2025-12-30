@@ -22,7 +22,7 @@ npm run dev
 
 ### struktur folder backend, yang belum ada tandanya belum di bikin masih plan
 
---- 
+---
 
 ```
 backend/
@@ -108,22 +108,25 @@ backend/
 - Return user data jika valid
 - Auto response 401 jika invalid
 
-
 ## API DOKUMENTASI 📚
 
---- 
+---
 
-### Meeting Manajement 
+### Meeting Manajement
 
 ##### Required Fiels
+
 - title (string, max 64 chars): Meeting name
 - description (string, max 255 chars): Meeting description
 - meeting_date (datetime): Date & time (format: YYYY-MM-DD HH:MM:SS)
+
 ##### OPTIONAL FIELDS:
+
 - place (string): Location
 - status (enum): upcoming (default), ongoing, completed, cancelled
 
 ##### Endpoints
+
 ```js
 // 1. List meetings (with filters)
 GET /api/meetings
@@ -153,15 +156,18 @@ DELETE /api/meetings/{id}
 ### EVENTS Management
 
 ##### REQUIRED FIELDS:
+
 - title (string): Event name
 - description (string): Event description
 - event_date (datetime): Event date & time
 
 ##### OPTIONAL FIELDS:
+
 - place (string): Location
 - status (enum): upcoming, ongoing, completed, cancelled, postponed
 
 ##### ENDPOINTS:
+
 ```js
 // Same as meetings, endpoint: /api/events
 GET /api/events?status=upcoming
@@ -173,6 +179,7 @@ DELETE /api/events/{id}
 ### ATTENDANCE SYSTEM
 
 ##### ADMIN: Create Attendance Session
+
 ```js
 POST /api/attendance/sessions
 {
@@ -192,6 +199,7 @@ POST /api/attendance/sessions
 ```
 
 ##### USER: Check-in Methods - MANUAL CHECK-IN (Enter Code)
+
 ```js
 POST /api/attendance/checkin/manual
 {
@@ -205,5 +213,33 @@ POST /api/attendance/checkin/manual
 - checkin manual code
 
 > untuk scan nya belum di selesaikan harus install library dulu kalo tau coba di share
-saat ini qr_code nya masih checkin manual 
+> saat ini qr_code nya masih checkin manual
 
+### output yang mau dibutuhkan FE
+
+- get all meetings.
+- get all events.
+- get all user.
+
+> ini dibutuhkan untuk menampilkan semua data dari BE > FE.
+
+### Contoh outputnya:
+
+```json
+{
+  "status": true,
+  "message": "pesan get data",
+  "data": [
+    {
+      "title": "judul 1",
+      "description": "deskripsi 1",
+      "dan_data_lainya": "..."
+    },
+    {
+      "title": "judul 2",
+      "description": "deskripsi 2",
+      "dan_data_lainya": "..."
+    }
+  ]
+}
+```
