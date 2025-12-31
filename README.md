@@ -215,31 +215,6 @@ POST /api/attendance/checkin/manual
 > untuk scan nya belum di selesaikan harus install library dulu kalo tau coba di share
 > saat ini qr_code nya masih checkin manual
 
-### output yang mau dibutuhkan FE
+### Error
 
-- get all meetings.
-- get all events.
-- get all user.
-
-> ini dibutuhkan untuk menampilkan semua data dari BE > FE.
-
-### Contoh outputnya:
-
-```json
-{
-  "status": true,
-  "message": "pesan get data",
-  "data": [
-    {
-      "title": "judul 1",
-      "description": "deskripsi 1",
-      "dan_data_lainya": "..."
-    },
-    {
-      "title": "judul 2",
-      "description": "deskripsi 2",
-      "dan_data_lainya": "..."
-    }
-  ]
-}
-```
+Gagal saat melakukan Update & Delete pada meeting
