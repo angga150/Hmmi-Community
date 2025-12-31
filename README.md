@@ -215,6 +215,14 @@ POST /api/attendance/checkin/manual
 > untuk scan nya belum di selesaikan harus install library dulu kalo tau coba di share
 > saat ini qr_code nya masih checkin manual
 
+### Penggunaan attendance sementara
+
+- `http:localhost:3000/attendance?code=CODE`
+- menampilkan validasi Attendance.
+- QR nanti akan dibuat oleh FE rencananya dan QR akan otomatis mengarahkan ke `http:localhost:3000/attendance?code=CODE`
+- Attendance akan dibuat dengan QR dan input CODE secara manual.
+- Membuat logika jika user belum login tetapi melakukan/masuk dengan QR, code tetap akan disimpan dan akan Valid jika user sudah login.
+
 ### Error
 
 Gagal saat melakukan Update & Delete pada meeting
