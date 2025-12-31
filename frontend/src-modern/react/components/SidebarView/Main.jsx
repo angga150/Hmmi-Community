@@ -1,12 +1,5 @@
 import { Link } from "react-router-dom";
-import {
-  FaCalendarAlt,
-  FaUsers,
-  FaChartLine,
-  FaFileAlt,
-  FaCog,
-  FaSignOutAlt,
-} from "react-icons/fa";
+import { FaCalendarAlt, FaCog, FaSignOutAlt } from "react-icons/fa";
 import SidebarDashboard from "./SidebarDashboard"; // Import komponen
 import AdminMenu from "./SidebarAdmin"; // Import komponen
 import ToolsMenu from "./SidebarTools"; // Import komponen

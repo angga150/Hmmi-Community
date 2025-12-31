@@ -4,6 +4,8 @@ import axios from "axios";
 import Sidebar from "./SidebarView/Main";
 import Navbar from "./Navbar";
 import MeetingView from "./MeetingView/Main";
+// Admin
+import AdminMeetingView from "./AdminMeetingView/Main";
 // Tools
 import Blackbox from "./Tools/Blackbox";
 
@@ -213,12 +215,15 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
           {sidebarActive === "meetings-user" && (
             <MeetingView user={user} searchTerm={searchTerm} />
           )}
-          {/* Member View */}
+
+          {/* Admin Member View */}
           {sidebarActive === "manage-members" && (
             <div className="p-5">
               <h2 className="pt-5">Tampilan Anggota</h2>
             </div>
           )}
+          {/* Admin Meeting Views */}
+          {sidebarActive === "manage-meetings" && <AdminMeetingView />}
 
           {/* Tools */}
           {sidebarActive === "ai-blackbox" && <Blackbox />}

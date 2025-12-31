@@ -34,7 +34,7 @@ function Navbar({
           </div>
 
           <div className="ms-auto d-flex align-items-center gap-2">
-            {user.role === "admin" ? (
+            {user.role === "admin hide" ? (
               <>
                 {/* Add Meeting Button */}
                 <button
