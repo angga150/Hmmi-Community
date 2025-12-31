@@ -253,13 +253,17 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
             <h2 className="py-5 my-5">{attendanceMsg}</h2>
           )}
           {/* Admin Member View */}
-          {sidebarActive === "manage-members" && (
-            <div className="p-5">
-              <h2 className="pt-5">Tampilan Anggota</h2>
-            </div>
+          {user.role === "admin" && (
+            <>
+              {sidebarActive === "manage-members" && (
+                <div className="p-5">
+                  <h2 className="pt-5">Tampilan Anggota</h2>
+                </div>
+              )}
+              {/* Admin Meeting Views */}
+              {sidebarActive === "manage-meetings" && <AdminMeetingView />}
+            </>
           )}
-          {/* Admin Meeting Views */}
-          {sidebarActive === "manage-meetings" && <AdminMeetingView />}
           {/* Tools */}
           {sidebarActive === "ai-blackbox" && <Blackbox />}
         </div>
