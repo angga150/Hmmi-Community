@@ -25,6 +25,11 @@ function ToolsMenu({ sidebarActive, setSidebarActive }) {
       icon: <FaRegCircle />,
       path: "manage-meetings",
     },
+    {
+      name: "Absensi",
+      icon: <FaRegCircle />,
+      path: "manage-attendance",
+    },
   ];
 
   useEffect(() => {

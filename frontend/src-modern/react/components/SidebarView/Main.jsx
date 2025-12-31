@@ -110,19 +110,9 @@ function Sidebar({
             <nav className="p-3">
               <ul className="nav flex-column">
                 {/* Main Navigation */}
-                {/* Dashboard Menu Component */}
-                <li className="nav-item mb-2">
-                  <SidebarDashboard
-                    sidebarActive={sidebarActive}
-                    setSidebarActive={setSidebarActive}
-                  />
-                </li>
-
-                {/* Separator */}
 
                 {user.role === "admin" ? (
                   <>
-                    <div className="my-2 border-top border-white border-opacity-10"></div>
                     <li className="nav-item mb-2">
                       <AdminMenu
                         sidebarActive={sidebarActive}
@@ -133,6 +123,16 @@ function Sidebar({
                 ) : (
                   <></>
                 )}
+
+                <div className="my-2 border-top border-white border-opacity-10"></div>
+                {/* Dashboard Menu Component */}
+                <li className="nav-item mb-2">
+                  <SidebarDashboard
+                    sidebarActive={sidebarActive}
+                    setSidebarActive={setSidebarActive}
+                  />
+                </li>
+
                 {/* Separator */}
                 <div className="my-2 border-top border-white border-opacity-10"></div>
                 {/* Tools Menu Component */}

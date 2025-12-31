@@ -5,7 +5,7 @@ function TestApi() {
   /* =======================
      STATE
   ======================= */
-  const [mode, setMode] = useState("POST"); // DEFAULT POST
+  const [mode, setMode] = useState("GET"); // DEFAULT POST
   const [getRes, setGetRes] = useState(null);
   const [postRes, setPostRes] = useState(null);
   const [putRes, setPutRes] = useState(null);
@@ -17,21 +17,14 @@ function TestApi() {
   /* =======================
      CONFIG
   ======================= */
-  const BASE_URL = "/api/meetings";
+  const BASE_URL = "/api/attendance/sessions";
 
   const HEADERS = {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
     "Content-Type": "application/json",
   };
-
   // Sample POST data
-  const POST_BODY = {
-    title: "IT Division Meeting",
-    description: "Website project discussion",
-    meeting_date: "2025-01-20 14:00:00",
-    place: "Computer Lab 1",
-  };
-
+  const POST_BODY = {};
   // Sample PUT data
   const PUT_BODY = {
     status: "completed",

@@ -6,6 +6,8 @@ import {
   Navigate,
 } from "react-router-dom";
 
+import Attendance from "./components/Attendance";
+
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import Dashboard from "./components/Dashboard";
@@ -17,6 +19,7 @@ function App() {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
   const [sidebarActive, setSidebarActive] = useState("meetings-user");
+  const [attendanceCode, setAttendanceCode] = useState(null);
 
   // ambil token saat app load
   useEffect(() => {
@@ -29,6 +32,7 @@ function App() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("attendance_code");
     setToken(null);
   };
 
@@ -79,6 +83,18 @@ function App() {
           element={<LogoutPage onLogout={handleLogout} />}
         />
 
+        {/* Attendance */}
+        <Route
+          path="/attendance"
+          element={
+            <Attendance
+              token={token}
+              setAttendanceCode={setAttendanceCode}
+              setSidebarActive={setSidebarActive}
+            />
+          }
+        />
+
         {/* Test API */}
         <Route path="/testapi" element={<TestApi />} />
 
@@ -120,6 +136,21 @@ function App() {
             token ? (
               <Dashboard
                 sidebarActive={"manage-meetings"}
+                setSidebarActive={setSidebarActive}
+                onLogout={handleLogout}
+              />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+        {/* ADMIN - Manage Meetings */}
+        <Route
+          path="/admin/manage-attendance"
+          element={
+            token ? (
+              <Dashboard
+                sidebarActive={"manage-attendance"}
                 setSidebarActive={setSidebarActive}
                 onLogout={handleLogout}
               />

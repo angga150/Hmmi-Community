@@ -26,6 +26,11 @@ function SidebarDashboard({ sidebarActive, setSidebarActive }) {
       icon: <FaCalendarAlt />,
       path: "meetings-user",
     },
+    {
+      name: "Absensi",
+      icon: <FaCalendarAlt />,
+      path: "attendance-user",
+    },
   ];
 
   useEffect(() => {

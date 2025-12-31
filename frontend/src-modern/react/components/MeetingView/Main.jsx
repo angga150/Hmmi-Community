@@ -250,9 +250,9 @@ function MeetingView({ user, searchTerm }) {
   }
 
   return (
-    <div className="p-4 p-md-5">
+    <div className="px-2 py-5 py-lg-3 px-lg-5 mt-sm-5">
       {/* Welcome Message */}
-      <div className="mt-4">
+      <div className="px-1 py-5 px-lg-3 pt-sm-4">
         <h1 className="h2 fw-bold text-dark mb-2">
           Selamat Datang, {user?.username || user?.name || "User"}
         </h1>

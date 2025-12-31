@@ -9,6 +9,8 @@ import AdminMeetingView from "./AdminMeetingView/Main";
 // Tools
 import Blackbox from "./Tools/Blackbox";
 
+import { QRCodeCanvas } from "qrcode.react";
+
 function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
   const navigate = useNavigate();
 
@@ -17,6 +19,8 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
   const [msg, setMsg] = useState(null);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [attendanceMsg, setAttendanceMsg] = useState("Belum Ada");
 
   const [isMobile, setIsMobile] = useState(false);
   // Deteksi ukuran layar
@@ -57,14 +61,17 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
     switch (name) {
       case "profile-user":
         return "Profile";
-
       case "meetings-user":
         return "Jadwal Pertemuan";
+      case "attendance-user":
+        return "Absensi";
 
       case "manage-members":
         return "Pengaturan User";
       case "manage-meetings":
         return "Pengaturan Jadwal Pertemuan";
+      case "manage-attendance":
+        return "Pengaturan Absensi";
 
       case "ai-blackbox":
         return "Tools AI BlackBox";
@@ -73,6 +80,32 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
         return "Dashboard";
     }
   };
+
+  const checkCode = async (code) => {
+    try {
+      const res = await axios.post(
+        "/api/attendance/checkin/manual",
+        {
+          code: code,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log("Code", res.data);
+      setAttendanceMsg(res.data.message);
+    } catch (err) {
+      console.log("Code", err);
+      setAttendanceMsg(err.response.data.message);
+    }
+  };
+  const code = localStorage.getItem("attendance_code");
+  if (code) {
+    checkCode(code);
+    localStorage.removeItem("attendance_code");
+  }
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -215,7 +248,10 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
           {sidebarActive === "meetings-user" && (
             <MeetingView user={user} searchTerm={searchTerm} />
           )}
-
+          {/* Attendance View */}
+          {sidebarActive === "attendance-user" && (
+            <h2 className="py-5 my-5">{attendanceMsg}</h2>
+          )}
           {/* Admin Member View */}
           {sidebarActive === "manage-members" && (
             <div className="p-5">
@@ -224,7 +260,6 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
           )}
           {/* Admin Meeting Views */}
           {sidebarActive === "manage-meetings" && <AdminMeetingView />}
-
           {/* Tools */}
           {sidebarActive === "ai-blackbox" && <Blackbox />}
         </div>
