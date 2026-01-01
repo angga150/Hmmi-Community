@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 import MeetingView from "./MeetingView/Main";
 // Admin
 import AdminMeetingView from "./AdminMeetingView/Main";
+import AdminAttendance from "./AdminAttendance/Main";
 // Tools
 import Blackbox from "./Tools/Blackbox";
 
@@ -262,6 +263,7 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
               )}
               {/* Admin Meeting Views */}
               {sidebarActive === "manage-meetings" && <AdminMeetingView />}
+              {sidebarActive === "manage-attendance" && <AdminAttendance />}
             </>
           )}
           {/* Tools */}
