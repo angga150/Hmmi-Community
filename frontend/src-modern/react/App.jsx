@@ -31,8 +31,8 @@ function App() {
   }, []);
 
   const handleLogout = () => {
+    if (token) localStorage.removeItem("attendance_code");
     localStorage.removeItem("token");
-    localStorage.removeItem("attendance_code");
     setToken(null);
   };
 
@@ -104,7 +104,9 @@ function App() {
           element={
             token ? (
               <Dashboard
-                sidebarActive={sidebarActive}
+                sidebarActive={
+                  attendanceCode ? "attendance-user" : sidebarActive
+                }
                 setSidebarActive={setSidebarActive}
                 onLogout={handleLogout}
               />
