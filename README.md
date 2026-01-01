@@ -225,4 +225,5 @@ POST /api/attendance/checkin/manual
 
 ### Error
 
+Jika error saat menjalankan `frontend` coba `npm run setup`  
 Gagal saat melakukan Update & Delete pada meeting
