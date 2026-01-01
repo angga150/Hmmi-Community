@@ -14,11 +14,23 @@ npm run dev
 
 - Panggil `localhost:3000/` untuk menjalankan.
 - Link otomatis mengarahkan ke `localhost:3000/login` untuk melakukan login.
-- Route yang sudah tersedia saat ini :
-  - `/login`
-  - `/register`
-  - `/dashboard`
-  - `/logout`
+
+---
+
+### Route yang sudah tersedia saat ini :
+
+- `/login`
+- `/register`
+- `/dashboard`
+- `/logout`
+
+### Route pendukung :
+
+- `/attendance?code=CODE_ATTENDANCE`
+- `/admin/*`
+- `/tools/*`
+
+---
 
 ### struktur folder backend, yang belum ada tandanya belum di bikin masih plan
 
