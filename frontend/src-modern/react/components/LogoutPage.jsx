@@ -15,7 +15,6 @@ function LogoutPage({ onLogout }) {
         });
 
         if (res.data.success) {
-          navigate("/login", { replace: true });
         } else {
           console.log(res);
         }
@@ -26,6 +25,7 @@ function LogoutPage({ onLogout }) {
 
     fetchMe();
     onLogout();
+    navigate("/login", { replace: true });
   }, [onLogout, navigate]);
 
   return (
