@@ -1,7 +1,14 @@
 import React from "react";
 import { FaCheckCircle, FaTimesCircle, FaInfoCircle } from "react-icons/fa";
 
-const MessageModal = ({ show, title, message, type, onClose }) => {
+const MessageModal = ({
+  show,
+  title,
+  message,
+  type,
+  onShowQRCode,
+  onClose,
+}) => {
   if (!show) return null;
 
   const typeConfig = {
@@ -44,9 +51,10 @@ const MessageModal = ({ show, title, message, type, onClose }) => {
             ></button>
           </div>
 
-          <div className="modal-body">
+          <div className="modal-body d-flex justify-content-center align-items-center flex-column pt-3">
+            {onShowQRCode}
             <div className="text-center">
-              <Icon size={48} className={`mb-3 ${config.textColor}`} />
+              {/* <Icon size={48} className={`mb-3 ${config.textColor}`} /> */}
               <p className="mb-0">{message}</p>
             </div>
           </div>

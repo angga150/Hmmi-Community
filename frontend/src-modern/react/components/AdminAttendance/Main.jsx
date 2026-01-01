@@ -4,6 +4,8 @@ import SessionList from "./SessionList";
 import SessionForm from "./SessionForm";
 // import SessionDetails from "./SessionDetails";
 import MessageModal from "./MessageModal";
+import { QRCodeCanvas, QRCodeSVG } from "qrcode.react";
+
 import {
   FaCalendarCheck,
   FaPlus,
@@ -142,13 +144,24 @@ const AdminAttendance = () => {
     setShowDetails(true);
   };
 
-  const sessionDetailMsg = (title, message, type = "success") => {
+  const sessionDetailMsg = (title, message, code, type = "success") => {
     return (
       <MessageModal
         show={showDetails}
         title={title}
         message={message}
         type={type}
+        onShowQRCode={
+          <QRCodeSVG
+            id={`qr-modal-${code}`}
+            value={`${window.location.origin}/attendance?code=${code}`}
+            size={180}
+            bgColor={"#ffffff"}
+            fgColor={"#000000"}
+            level={"H"}
+            includeMargin={true}
+          />
+        }
         onClose={() => setShowDetails(false)}
       />
     );
@@ -361,7 +374,11 @@ const AdminAttendance = () => {
       {/* Session Details Modal */}
       {showDetails &&
         selectedSession &&
-        sessionDetailMsg("Segera hadir", "fitur akan hadir")}
+        sessionDetailMsg(
+          "Scan QR ini",
+          `Code : ${selectedSession.unique_code}`,
+          selectedSession.unique_code
+        )}
 
       {/* Message Modal */}
       <MessageModal
