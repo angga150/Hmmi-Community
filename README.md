@@ -238,7 +238,13 @@ POST /api/attendance/checkin/manual
 ### Error
 
 Jika error saat menjalankan `frontend` coba `npm run setup`  
-Gagal saat melakukan Update & Delete pada meeting
+Gagal saat melakukan Delete pada meeting responsenya nabrak
+
+Response :
+
+> {"success":true,"message":"Meeting berhasil dihapus"}{"success":false,"message":"Method tidak diizinkan"}
+
+---
 
 > endpoint yg kau butuhkan apa lagi nih? selain edit sama delete meeting dan event?
 > bentar lagi siap nih, siap deploy
