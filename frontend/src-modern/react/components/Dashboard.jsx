@@ -23,8 +23,6 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [attendanceMsg, setAttendanceMsg] = useState("Belum Ada");
-
   const [isMobile, setIsMobile] = useState(false);
   // Deteksi ukuran layar
   useEffect(() => {
@@ -83,32 +81,6 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
         return "Dashboard";
     }
   };
-
-  const checkCode = async (code) => {
-    try {
-      const res = await axios.post(
-        "/api/attendance/checkin/manual",
-        {
-          code: code,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      console.log("Code", res.data);
-      setAttendanceMsg(res.data.message);
-    } catch (err) {
-      console.log("Code", err);
-      setAttendanceMsg(err.response.data.message);
-    }
-  };
-  const code = localStorage.getItem("attendance_code");
-  if (code) {
-    checkCode(code);
-    localStorage.removeItem("attendance_code");
-  }
 
   useEffect(() => {
     const fetchProfile = async () => {

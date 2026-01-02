@@ -25,10 +25,8 @@ const UserAttendance = () => {
   const [modalMessage, setModalMessage] = useState("");
   const [modalSuccess, setModalSuccess] = useState(false);
 
-  // State untuk result detail (tetap ada untuk tampilan di page)
   const [result, setResult] = useState(null);
 
-  // Check localStorage for saved code on component mount
   useEffect(() => {
     const savedCode = localStorage.getItem("attendance_code");
     if (savedCode) {
@@ -134,6 +132,11 @@ const UserAttendance = () => {
       setLoading(false);
     }
   };
+
+  if (localStorage.getItem("attendance_code")) {
+    handleCheckCode(localStorage.getItem("attendance_code"));
+    localStorage.removeItem("attendance_code");
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
