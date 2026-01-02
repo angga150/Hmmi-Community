@@ -409,7 +409,6 @@ const UserAttendance = () => {
                     <thead className="table-light">
                       <tr>
                         <th width="30%">Judul Sesi</th>
-                        <th width="20%">Kode</th>
                         <th width="25%">Tanggal</th>
                         <th width="25%">Status & Peserta</th>
                       </tr>
@@ -426,13 +425,6 @@ const UserAttendance = () => {
                                   {session.event_title || session.meeting_title}
                                 </div>
                               )}
-                            </div>
-                          </td>
-                          <td>
-                            <div className="text-center">
-                              <code className="bg-light p-2 rounded d-inline-block">
-                                {session.unique_code}
-                              </code>
                             </div>
                           </td>
                           <td>
