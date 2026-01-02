@@ -216,17 +216,4 @@ POST /api/attendance/checkin/manual
 
 - update delete events and meetings
 
-### Penggunaan attendance sementara
-
-- `http:localhost:3000/attendance?code=CODE`
-- menampilkan validasi Attendance.
-- QR nanti akan dibuat oleh FE rencananya dan QR akan otomatis mengarahkan ke `http:localhost:3000/attendance?code=CODE`
-- Attendance akan dibuat dengan QR dan input CODE secara manual.
-- Membuat logika jika user belum login tetapi melakukan/masuk dengan QR, code tetap akan disimpan dan akan Valid jika user sudah login.
-
-### Error
-
-Jika error saat menjalankan `frontend` coba `npm run setup`  
-Gagal saat melakukan Delete pada meeting responsenya nabrak
-
 ---
