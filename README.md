@@ -156,13 +156,13 @@ POST /api/meetings
 }
 
 // 3. Update meeting (admin only)
-PUT /api/meetings/{id}
+PUT /api/meetings?id=1
 {
     "status": "completed"
 }
 
 // 4. Delete meeting (admin only)
-DELETE /api/meetings/{id}
+DELETE /api/meetings?id=1
 ```
 
 ### EVENTS Management
@@ -184,8 +184,8 @@ DELETE /api/meetings/{id}
 // Same as meetings, endpoint: /api/events
 GET /api/events?status=upcoming
 POST /api/events
-PUT /api/events/{id}
-DELETE /api/events/{id}
+PUT /api/events?id=1
+DELETE /api/events?id=1
 ```
 
 ### ATTENDANCE SYSTEM
@@ -242,3 +242,5 @@ Gagal saat melakukan Update & Delete pada meeting
 
 > endpoint yg kau butuhkan apa lagi nih? selain edit sama delete meeting dan event?
 > bentar lagi siap nih, siap deploy
+
+> update dan delete meeting sudah bisa berjalan

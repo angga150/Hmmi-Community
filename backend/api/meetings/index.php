@@ -99,6 +99,110 @@ switch ($method) {
             echo json_encode(['success' => false, 'message' => 'Gagal membuat meeting']);
         }
         break;
+
+    case 'PUT':
+        // PUT /api/meetings?id=1 - Update meeting (admin only)
+        if ($user['role'] !== 'admin') {
+            http_response_code(403);
+            echo json_encode(['success' => false, 'message' => 'Hanya admin yang bisa mengupdate meeting']);
+            exit;
+        }
+        $meetingId = $_GET['id'] ?? null;
+        if (empty($meetingId)) {
+            http_response_code(422);
+            echo json_encode(['success' => false, 'message' => 'ID meeting wajib diisi']);
+            exit;
+        }
+        
+        $input = file_get_contents('php://input');
+
+        $data = json_decode($input, true);
+
+        if ($data === null) {
+            parse_str($input, $data);
+        }
+
+        if (empty($data)) {
+            http_response_code(422);
+            echo json_encode(['success' => false, 'message' => 'Data untuk update wajib diisi']);
+            exit;
+        }
+
+        // Check if meeting exists
+        $stmt = $pdo->prepare("SELECT id FROM meetings WHERE id = ?");
+        $stmt->execute([$meetingId]);
+        if (!$stmt->fetch()) {
+            http_response_code(404);
+            echo json_encode(['success' => false, 'message' => 'Meeting tidak ditemukan']);
+            exit;
+        }
+
+        // update hanya status nya saja
+        $fields = [];
+        $params = [];
+        if (isset($data['status'])) {
+            $fields[] = "status = ?";
+            $params[] = $data['status'];
+        }
+        if (empty($fields)) {
+            http_response_code(422);
+            echo json_encode(['success' => false, 'message' => 'Tidak ada field yang diupdate']);
+            exit;
+        }
+        $params[] = $meetingId;
+        try {
+            $sql = "UPDATE meetings SET " . implode(", ", $fields) . ", updated_at = NOW() WHERE id = ?";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
+            
+            $stmt = $pdo->prepare("SELECT * FROM meetings WHERE id = ?");
+            $stmt->execute([$meetingId]);
+            $updatedMeeting = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            echo json_encode([
+                'success' => true,
+                'message' => 'Meeting berhasil diupdate',
+                'data' => $updatedMeeting
+            ]);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'message' => 'Gagal mengupdate meeting']);
+        }
+        break;
+    case 'DELETE':
+        // DELETE /api/meetings?id=1 - Delete meeting (admin only)
+        if ($user['role'] !== 'admin') {
+            http_response_code(403);
+            echo json_encode(['success' => false, 'message' => 'Hanya admin yang bisa menghapus meeting']);
+            exit;
+        }
+        
+        $meetingId = $_GET['id'] ?? null;
+        if (empty($meetingId)) {
+            http_response_code(422);
+            echo json_encode(['success' => false, 'message' => 'ID meeting wajib diisi']);
+            exit;
+        }
+        // Check if meeting exists
+        $stmt = $pdo->prepare("SELECT id FROM meetings WHERE id = ?");
+        $stmt->execute([$meetingId]);
+        if (!$stmt->fetch()) {
+            http_response_code(404);
+            echo json_encode(['success' => false, 'message' => 'Meeting tidak ditemukan']);
+            exit;
+        }
+        try {
+            $stmt = $pdo->prepare("DELETE FROM meetings WHERE id = ?");
+            $stmt->execute([$meetingId]);
+            
+            echo json_encode([
+                'success' => true,
+                'message' => 'Meeting berhasil dihapus'
+            ]);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'message' => 'Gagal menghapus meeting']);
+        }
         
     default:
         http_response_code(405);
