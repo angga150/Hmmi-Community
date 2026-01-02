@@ -112,6 +112,97 @@ switch ($method) {
             echo json_encode(['success' => false, 'message' => 'Gagal membuat event: ' . $e->getMessage()]);
         }
         break;
+
+    case 'PUT':
+        // PUT /api/events - Update event (admin only)
+        if ($user['role'] !== 'admin') {
+            http_response_code(403);
+            echo json_encode(['success' => false, 'message' => 'Hanya admin yang bisa mengupdate event']);
+            exit;
+        }
+
+        $eventId = $_GET['id'] ?? null;
+        if (empty($eventId)) {
+            http_response_code(422);
+            echo json_encode(['success' => false, 'message' => 'ID event wajib disertakan']);
+            exit;
+        }
+
+        $input = json_decode(file_get_contents('php://input'), true);
+
+        if (empty($input)) {
+            http_response_code(422);
+            echo json_encode(['success' => false, 'message' => 'Data untuk update wajib disertakan']);
+            exit;
+        }
+
+        try {
+            // Bangun query update dinamis
+            $fields = [];
+            $values = [];
+            foreach ($input as $key => $value) {
+                $fields[] = "$key = ?";
+                $values[] = $value;
+            }
+            $values[] = $eventId;
+
+            $sql = "UPDATE events SET " . implode(', ', $fields) . ", updated_at = NOW() WHERE id = ?";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($values);
+
+            // Ambil data event yang diupdate
+            $stmt = $pdo->prepare("SELECT * FROM events WHERE id = ?");
+            $stmt->execute([$eventId]);
+            $updatedEvent = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            echo json_encode([
+                'success' => true,
+                'message' => 'Event berhasil diupdate',
+                'data' => $updatedEvent
+            ]);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'message' => 'Gagal mengupdate event: ' . $e->getMessage()]);
+        }
+        break;
+    
+    case 'DELETE':
+        // DELETE /api/events?id=1 - Delete event (admin only)
+        if ($user['role'] !== 'admin') {
+            http_response_code(403);
+            echo json_encode(['success' => false, 'message' => 'Hanya admin yang bisa menghapus event']);
+            exit;
+        }
+        $eventId = $_GET['id'] ?? null;
+        if (empty($eventId)) {
+            http_response_code(422);
+            echo json_encode(['success' => false, 'message' => 'ID event wajib diisi']);
+            exit;
+        }
+        
+        try {
+            // Cek apakah event ada
+            $stmt = $pdo->prepare("SELECT id FROM events WHERE id = ?");
+            $stmt->execute([$eventId]);
+            if (!$stmt->fetch()) {
+                http_response_code(404);
+                echo json_encode(['success' => false, 'message' => 'Event tidak ditemukan']);
+                exit;
+            }
+
+            // Hapus event
+            $stmt = $pdo->prepare("DELETE FROM events WHERE id = ?");
+            $stmt->execute([$eventId]);
+
+            echo json_encode([
+                'success' => true,
+                'message' => 'Event berhasil dihapus'
+            ]);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'message' => 'Gagal menghapus event: ' . $e->getMessage()]);
+        }
+        break;
         
     default:
         http_response_code(405);

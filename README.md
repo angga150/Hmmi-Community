@@ -171,6 +171,20 @@ DELETE /api/events?id=1
 
 ##### ADMIN: Create Attendance Session
 
+
+```js
+GET /api/attendance/sessions - List sessions
+Admin bisa lihat semua, user hanya lihat yang aktif
+
+filter 
+
+/api/attendance/sessions?meeting_id=
+/api/attendance/sessions?event_id=
+/api/attendance/sessions?date=
+/api/attendance/sessions?active_only
+
+```
+
 ```js
 POST /api/attendance/sessions
 {
@@ -200,11 +214,7 @@ POST /api/attendance/checkin/manual
 
 ### fitur yang terbaru
 
-- create meeting, event, absensi kehadiran
-- checkin manual code
-
-> untuk scan nya belum di selesaikan harus install library dulu kalo tau coba di share
-> saat ini qr_code nya masih checkin manual
+- update delete events and meetings
 
 ### Penggunaan attendance sementara
 
@@ -219,13 +229,4 @@ POST /api/attendance/checkin/manual
 Jika error saat menjalankan `frontend` coba `npm run setup`  
 Gagal saat melakukan Delete pada meeting responsenya nabrak
 
-Response :
-
-> {"success":true,"message":"Meeting berhasil dihapus"}{"success":false,"message":"Method tidak diizinkan"}
-
 ---
-
-> endpoint yg kau butuhkan apa lagi nih? selain edit sama delete meeting dan event?
-> bentar lagi siap nih, siap deploy
-
-> update dan delete meeting sudah bisa berjalan
