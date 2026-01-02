@@ -7,6 +7,8 @@ import MeetingView from "./MeetingView/Main";
 // Admin
 import AdminMeetingView from "./AdminMeetingView/Main";
 import AdminAttendance from "./AdminAttendance/Main";
+// User
+import UserAttendance from "./UserAttendance/Main";
 // Tools
 import Blackbox from "./Tools/Blackbox";
 
@@ -250,9 +252,8 @@ function Dashboard({ sidebarActive, setSidebarActive, onLogout }) {
             <MeetingView user={user} searchTerm={searchTerm} />
           )}
           {/* Attendance View */}
-          {sidebarActive === "attendance-user" && (
-            <h2 className="py-5 my-5">{attendanceMsg}</h2>
-          )}
+          {sidebarActive === "attendance-user" && <UserAttendance />}
+
           {/* Admin Member View */}
           {user.role === "admin" && (
             <>
