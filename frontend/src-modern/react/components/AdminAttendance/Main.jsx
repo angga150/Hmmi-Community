@@ -250,9 +250,9 @@ const AdminAttendance = () => {
   };
 
   return (
-    <div className="container-fluid p-4">
+    <div className="container-fluid p-4 pt-5">
       {/* Header */}
-      <div className="d-flex justify-content-between align-items-center mb-4">
+      <div className="d-flex justify-content-between align-items-center mb-4 pt-3 mt-2">
         <div>
           <h1 className="h2 fw-bold text-dark mb-2">
             <FaCalendarCheck className="me-2" />
