@@ -48,7 +48,9 @@ const AdminMeetings = () => {
       }
     } catch (error) {
       console.error("Error fetching meetings:", error);
-      showMessage("Error", "Gagal mengambil data meeting", "danger");
+      const errorMessage =
+        error.response?.data?.message || "Gagal mengambil data meeting";
+      showMessage("Error", errorMessage, "danger");
     } finally {
       setLoading(false);
     }
@@ -62,58 +64,80 @@ const AdminMeetings = () => {
     try {
       const response = await axios.post("/api/meetings", meetingData, {
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
       if (response.data.success) {
-        showMessage("Sukses", "Meeting berhasil dibuat", "success");
+        showMessage(
+          "Sukses",
+          response.data.message || "Meeting berhasil dibuat",
+          "success"
+        );
         setShowForm(false);
         fetchMeetings();
       }
     } catch (error) {
       console.error("Error creating meeting:", error);
-      showMessage("Error", "Gagal membuat meeting", "danger");
+      const errorMessage =
+        error.response?.data?.message || "Gagal membuat meeting";
+      showMessage("Error", errorMessage, "danger");
     }
   };
 
   const handleUpdateMeeting = async (id, updateData) => {
-    console.log("pesan", id);
     try {
-      const response = await axios.put(`/api/meetings/${id}`, updateData, {
+      // Sesuai backend, PUT hanya menerima query parameter id dan body dengan status
+      const response = await axios.put(`/api/meetings?id=${id}`, updateData, {
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
       if (response.data.success) {
-        showMessage("Sukses", "Meeting berhasil diperbarui", "success");
+        showMessage(
+          "Sukses",
+          response.data.message || "Meeting berhasil diperbarui",
+          "success"
+        );
         fetchMeetings();
-      } else {
-        showMessage("Error", "Gagal memperbajarui meeting", "danger");
       }
     } catch (error) {
       console.error("Error updating meeting:", error);
-      showMessage("Error", "Gagal memperbarui meeting", "danger");
+      const errorMessage =
+        error.response?.data?.message || "Gagal memperbarui meeting";
+      showMessage("Error", errorMessage, "danger");
     }
   };
 
   const handleDeleteMeeting = async () => {
     try {
-      const response = await axios.delete(`/api/meetings/${meetingToDelete}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axios.delete(
+        `/api/meetings?id=${meetingToDelete}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
       if (response.data.success) {
-        showMessage("Sukses", "Meeting berhasil dihapus", "success");
+        showMessage(
+          "Sukses",
+          response.data.message || "Meeting berhasil dihapus",
+          "success"
+        );
         setShowDeleteModal(false);
+        setMeetingToDelete(null);
         fetchMeetings();
       }
     } catch (error) {
       console.error("Error deleting meeting:", error);
-      showMessage("Error", "Gagal menghapus meeting", "danger");
+      const errorMessage =
+        error.response?.data?.message || "Gagal menghapus meeting";
+      showMessage("Error", errorMessage, "danger");
     }
   };
 
@@ -147,13 +171,13 @@ const AdminMeetings = () => {
   };
 
   return (
-    <div className="container-fluid p-4">
+    <div className="container-fluid p-5">
       {/* Header */}
-      <div className="d-flex justify-content-between align-items-center my-5 p-3">
+      <div className="d-flex justify-content-between align-items-center mb-4 pt-5">
         <div>
           <h1 className="h2 fw-bold text-dark mb-2">
             <FaCalendarAlt className="me-2" />
-            Jadwal Pertemuan
+            Manajemen Meeting
           </h1>
           <p className="text-muted">Kelola jadwal pertemuan dan workshop</p>
         </div>
@@ -171,16 +195,23 @@ const AdminMeetings = () => {
 
       {/* Filters */}
       <div className="card mb-4">
-        <div className="card-header bg-light">
+        <div className="card-header bg-light d-flex justify-content-between align-items-center">
           <h5 className="mb-0">
             <FaFilter className="me-2" />
-            Filter
+            Filter Pencarian
           </h5>
+          <button
+            className="btn btn-sm btn-outline-secondary"
+            onClick={fetchMeetings}
+            disabled={loading}
+          >
+            <FaSync className={loading ? "fa-spin" : ""} />
+          </button>
         </div>
         <div className="card-body">
           <div className="row g-3">
             <div className="col-md-3">
-              <label className="form-label">Status</label>
+              <label className="form-label">Status Meeting</label>
               <select
                 className="form-select"
                 value={filters.status}
@@ -193,7 +224,7 @@ const AdminMeetings = () => {
               </select>
             </div>
             <div className="col-md-3">
-              <label className="form-label">Tanggal</label>
+              <label className="form-label">Tanggal Meeting</label>
               <input
                 type="date"
                 className="form-control"
@@ -202,21 +233,21 @@ const AdminMeetings = () => {
               />
             </div>
             <div className="col-md-3">
-              <label className="form-label">Upcoming Only</label>
+              <label className="form-label">Hanya Yang Akan Datang</label>
               <select
                 className="form-select"
                 value={filters.upcoming}
                 onChange={(e) => handleFilterChange("upcoming", e.target.value)}
               >
-                <option value="">Semua</option>
+                <option value="">Tampilkan Semua</option>
                 <option value="true">Ya</option>
-                <option value="false">Tidak</option>
               </select>
             </div>
             <div className="col-md-3 d-flex align-items-end">
               <button
                 className="btn btn-outline-secondary w-100"
                 onClick={clearFilters}
+                disabled={loading}
               >
                 <FaSync className="me-2" />
                 Reset Filter
@@ -258,10 +289,13 @@ const AdminMeetings = () => {
       {/* Delete Confirmation Modal */}
       <ConfirmationModal
         show={showDeleteModal}
-        title="Konfirmasi Hapus"
+        title="Konfirmasi Hapus Meeting"
         message="Apakah Anda yakin ingin menghapus meeting ini? Tindakan ini tidak dapat dibatalkan."
         onConfirm={handleDeleteMeeting}
-        onCancel={() => setShowDeleteModal(false)}
+        onCancel={() => {
+          setShowDeleteModal(false);
+          setMeetingToDelete(null);
+        }}
       />
 
       {/* Message Modal */}
