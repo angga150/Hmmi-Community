@@ -111,31 +111,15 @@ backend/
 └── .env                          # Environment variables
 ```
 
-### Middleware Flow:
-
-- middleware/auth.php → Gatekeeper semua endpoint protected
-- Cek token di header
-- Validasi di database
-- Cek expiry time
-- Return user data jika valid
-- Auto response 401 jika invalid
-
 ## API DOKUMENTASI 📚
 
----
-
 ### Meeting Manajement
-
-##### Required Fiels
 
 - title (string, max 64 chars): Meeting name
 - description (string, max 255 chars): Meeting description
 - meeting_date (datetime): Date & time (format: YYYY-MM-DD HH:MM:SS)
-
-##### OPTIONAL FIELDS:
-
-- place (string): Location
-- status (enum): upcoming (default), ongoing, completed, cancelled
+- place (string): Location ( opsional )
+- status (enum): upcoming (default), ongoing, completed, cancelled ( opsional )
 
 ##### Endpoints
 
@@ -167,16 +151,11 @@ DELETE /api/meetings?id=1
 
 ### EVENTS Management
 
-##### REQUIRED FIELDS:
-
 - title (string): Event name
 - description (string): Event description
 - event_date (datetime): Event date & time
-
-##### OPTIONAL FIELDS:
-
-- place (string): Location
-- status (enum): upcoming, ongoing, completed, cancelled, postponed
+- place (string): Location ( opsional )
+- status (enum): upcoming, ongoing, completed, cancelled, postponed ( opsional )
 
 ##### ENDPOINTS:
 
@@ -191,6 +170,20 @@ DELETE /api/events?id=1
 ### ATTENDANCE SYSTEM
 
 ##### ADMIN: Create Attendance Session
+
+
+```js
+GET /api/attendance/sessions - List sessions
+Admin bisa lihat semua, user hanya lihat yang aktif
+
+filter 
+
+/api/attendance/sessions?meeting_id=
+/api/attendance/sessions?event_id=
+/api/attendance/sessions?date=
+/api/attendance/sessions?active_only
+
+```
 
 ```js
 POST /api/attendance/sessions
@@ -221,11 +214,7 @@ POST /api/attendance/checkin/manual
 
 ### fitur yang terbaru
 
-- create meeting, event, absensi kehadiran
-- checkin manual code
-
-> untuk scan nya belum di selesaikan harus install library dulu kalo tau coba di share
-> saat ini qr_code nya masih checkin manual
+- update delete events and meetings
 
 ### Penggunaan attendance sementara
 
@@ -240,13 +229,4 @@ POST /api/attendance/checkin/manual
 Jika error saat menjalankan `frontend` coba `npm run setup`  
 Gagal saat melakukan Delete pada meeting responsenya nabrak
 
-Response :
-
-> {"success":true,"message":"Meeting berhasil dihapus"}{"success":false,"message":"Method tidak diizinkan"}
-
 ---
-
-> endpoint yg kau butuhkan apa lagi nih? selain edit sama delete meeting dan event?
-> bentar lagi siap nih, siap deploy
-
-> update dan delete meeting sudah bisa berjalan
