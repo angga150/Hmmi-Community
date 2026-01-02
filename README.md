@@ -111,31 +111,15 @@ backend/
 └── .env                          # Environment variables
 ```
 
-### Middleware Flow:
-
-- middleware/auth.php → Gatekeeper semua endpoint protected
-- Cek token di header
-- Validasi di database
-- Cek expiry time
-- Return user data jika valid
-- Auto response 401 jika invalid
-
 ## API DOKUMENTASI 📚
 
----
-
 ### Meeting Manajement
-
-##### Required Fiels
 
 - title (string, max 64 chars): Meeting name
 - description (string, max 255 chars): Meeting description
 - meeting_date (datetime): Date & time (format: YYYY-MM-DD HH:MM:SS)
-
-##### OPTIONAL FIELDS:
-
-- place (string): Location
-- status (enum): upcoming (default), ongoing, completed, cancelled
+- place (string): Location ( opsional )
+- status (enum): upcoming (default), ongoing, completed, cancelled ( opsional )
 
 ##### Endpoints
 
@@ -167,16 +151,11 @@ DELETE /api/meetings?id=1
 
 ### EVENTS Management
 
-##### REQUIRED FIELDS:
-
 - title (string): Event name
 - description (string): Event description
 - event_date (datetime): Event date & time
-
-##### OPTIONAL FIELDS:
-
-- place (string): Location
-- status (enum): upcoming, ongoing, completed, cancelled, postponed
+- place (string): Location ( opsional )
+- status (enum): upcoming, ongoing, completed, cancelled, postponed ( opsional )
 
 ##### ENDPOINTS:
 
