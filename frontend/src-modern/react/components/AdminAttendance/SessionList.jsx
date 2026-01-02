@@ -6,9 +6,17 @@ import {
   FaCalendarAlt,
   FaClock,
   FaExclamationTriangle,
+  FaChartBar,
+  FaFileAlt,
 } from "react-icons/fa";
 
-const SessionList = ({ sessions, loading, onViewDetails, onRefresh }) => {
+const SessionList = ({
+  sessions,
+  loading,
+  onViewDetails,
+  onViewReport,
+  onRefresh,
+}) => {
   const getStatusBadge = (session) => {
     const now = new Date();
     const expiresAt = session.expires_at ? new Date(session.expires_at) : null;
@@ -44,6 +52,7 @@ const SessionList = ({ sessions, loading, onViewDetails, onRefresh }) => {
         <div className="spinner-border text-primary" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>
+        <p className="mt-2 text-muted">Memuat data sesi...</p>
       </div>
     );
   }
@@ -78,11 +87,11 @@ const SessionList = ({ sessions, loading, onViewDetails, onRefresh }) => {
               <tr>
                 <th width="5%">ID</th>
                 <th width="20%">Judul</th>
-                <th width="15%">Kode & Status</th>
+                <th width="10%">Kode & Status</th>
                 <th width="15%">Tanggal & Waktu</th>
-                <th width="15%">Kapasitas</th>
+                <th width="10%">Kapasitas</th>
                 <th width="15%">Event/Meeting</th>
-                <th width="15%">Aksi</th>
+                <th width="25%">Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -99,8 +108,8 @@ const SessionList = ({ sessions, loading, onViewDetails, onRefresh }) => {
                     </div>
                   </td>
                   <td>
-                    <div className="d-flex flex-column gap-2">
-                      <code className="bg-light p-2 rounded text-center">
+                    <div className="d-flex flex-column gap-1">
+                      <code className="bg-light p-1 rounded text-center">
                         {session.unique_code}
                       </code>
                       {getStatusBadge(session)}
@@ -188,13 +197,21 @@ const SessionList = ({ sessions, loading, onViewDetails, onRefresh }) => {
                       </button>
                       <button
                         className="btn btn-outline-primary"
-                        onClick={() => {
-                          // Bisa diisi dengan aksi QR code
-                          onViewDetails(session);
-                        }}
+                        onClick={() => onViewDetails(session)}
                         title="Lihat QR Code"
                       >
                         <FaQrcode />
+                      </button>
+                      <button
+                        className="btn btn-outline-success"
+                        onClick={() => onViewReport(session)}
+                        title="Lihat Laporan"
+                        disabled={
+                          !session.attendee_count ||
+                          session.attendee_count === 0
+                        }
+                      >
+                        <FaChartBar />
                       </button>
                     </div>
                   </td>
