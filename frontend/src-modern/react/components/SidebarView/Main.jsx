@@ -34,7 +34,7 @@ function Sidebar({
         }}
       >
         {/* Scrollable container */}
-        <div className="d-flex flex-column h-100 overflow-hidden">
+        <div className="d-flex flex-column overflow-hidden">
           {/* Fixed header section */}
           <div style={{ flexShrink: 0 }}>
             {/* Sidebar Header */}
