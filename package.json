@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "frontend": "cd frontend && npm run dev",
+    "frontend": "cd frontend && npm run dev -- --host",
     "backend": "php -S localhost:8000 -t backend/public",
     "dev": "npx concurrently \"npm run backend\" \"npm run frontend\"",
     "setup": "npm install && npm install --prefix frontend"
