@@ -302,4 +302,9 @@ Response:
   }
 }
 ```
+
 > nah itu aku yang masi bingung kenapa hasil report nya ujung nya selalu double padahal klo lihat dari db hasil nya pas gak double
+
+### Request
+
+Untuk admin belum ada endpoint nya (belum dibuat di public/index.php), tapi di file backend/api/admin sudah ada

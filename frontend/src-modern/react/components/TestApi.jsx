@@ -17,7 +17,7 @@ function TestApi() {
   /* =======================
      CONFIG
   ======================= */
-  const BASE_URL = "/api/attendance/sessions";
+  const BASE_URL = "api/attendance/reports/session?session_id=11";
 
   const HEADERS = {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
