@@ -302,3 +302,4 @@ Response:
   }
 }
 ```
+> nah itu aku yang masi bingung kenapa hasil report nya ujung nya selalu double padahal klo lihat dari db hasil nya pas gak double
