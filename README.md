@@ -310,3 +310,5 @@ Response:
 Untuk admin belum ada endpoint nya (belum dibuat di public/index.php), tapi di file backend/api/admin sudah ada
 
 > okeh nanti aku buat endpoint nya.
+
+> udh kutambahin itu yak untuk dokumentasi nya besok aja ya lagi ngerjain tugas aku, idzin
