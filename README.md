@@ -308,3 +308,5 @@ Response:
 ### Request
 
 Untuk admin belum ada endpoint nya (belum dibuat di public/index.php), tapi di file backend/api/admin sudah ada
+
+> okeh nanti aku buat endpoint nya.
