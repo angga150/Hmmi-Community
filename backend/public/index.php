@@ -34,7 +34,7 @@ $routes = [
     '/api/user/profile' => '../api/user/profile.php',
 
     // admin
-    '/api/admin/users' => '../api/admin/users/index.php',
+    '/api/admin/users' => '../api/admin/users.php',
     '/api/admin/dashboard' => '../api/admin/dashboard.php',
     
     // Health
