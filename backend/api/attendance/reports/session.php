@@ -108,16 +108,26 @@ try {
         'checkin_duration' => $firstCheckin && $lastCheckin ? 
             round((strtotime($lastCheckin) - strtotime($firstCheckin)) / 60, 0) . ' menit' : '-'
     ];
+
+    // echo json_encode([
+    //     'success' => true,
+    //     'data' => [
+    //         'session' => $session,
+    //         'attendance' => $attendance,
+    //         'stats' => $stats
+    //     ]
+    // ]);
+    // exit;
     
     // 4. Group by role
-    $roleStats = [];
-    foreach ($attendance as $record) {
-        $role = $record['role'];
-        if (!isset($roleStats[$role])) {
-            $roleStats[$role] = 0;
-        }
-        $roleStats[$role]++;
-    }
+    // $roleStats = [];
+    // foreach ($attendance as $record) {
+    //     $role = $record['role'];
+    //     if (!isset($roleStats[$role])) {
+    //         $roleStats[$role] = 0;
+    //     }
+    //     $roleStats[$role]++;
+    // }
     
     echo json_encode([
         'success' => true,
@@ -125,7 +135,7 @@ try {
             'session' => $session,
             'attendance' => $attendance,
             'stats' => $stats,
-            'role_stats' => $roleStats,
+            // 'role_stats' => $roleStats,
             'summary' => [
                 'session_title' => $session['title'],
                 'unique_code' => $session['unique_code'],
