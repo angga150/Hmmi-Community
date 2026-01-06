@@ -216,3 +216,5 @@ POST /api/attendance/checkin/manual
 - update delete events and meetings
 
 ---
+
+> view manage user nanti aku yg buat, kau lanjutin benerin report session ajah
