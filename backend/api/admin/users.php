@@ -13,20 +13,17 @@ try {
     // Hanya admin yang bisa akses
     $currentUser = requireRole('admin');
     
-    // Get users (exclude current user and passwords)
-    $stmt = $pdo->query("
-        SELECT id, name, email, role, created_at 
-        FROM users 
-        WHERE id != ? 
-        ORDER BY created_at DESC
-    ");
+    // Get all users except the current admin
+    $stmt = $pdo->prepare("SELECT id, username, email, role, created_at FROM users WHERE id != ?");
+    $stmt->execute([$currentUser['id']]);
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
     echo json_encode([
         'success' => true,
         'data' => $users,
-        'count' => count($users)
+        'count' => count($users),
+        'message' => 'Daftar pengguna berhasil diambil'
     ]);
+
     
 } catch (Exception $e) {
     http_response_code($e->getCode() ?: 500);
