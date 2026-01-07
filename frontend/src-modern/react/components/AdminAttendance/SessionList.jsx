@@ -188,13 +188,13 @@ const SessionList = ({
                   </td>
                   <td>
                     <div className="btn-group btn-group-sm">
-                      <button
+                      {/* <button
                         className="btn btn-outline-info"
                         onClick={() => onViewDetails(session)}
                         title="Lihat Detail"
                       >
                         <FaEye />
-                      </button>
+                      </button> */}
                       <button
                         className="btn btn-outline-primary"
                         onClick={() => onViewDetails(session)}
