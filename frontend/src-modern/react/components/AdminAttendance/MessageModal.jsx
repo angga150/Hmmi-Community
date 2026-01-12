@@ -1,71 +1,89 @@
 import React from "react";
 import {
   FaCheckCircle,
-  FaTimesCircle,
+  FaExclamationCircle,
   FaInfoCircle,
-  FaExclamationTriangle,
+  FaTimes,
 } from "react-icons/fa";
 
-const MessageModal = ({ show, title, message, type, onClose }) => {
+const MessageModal = ({ show, title, message, type = "success", onClose }) => {
   if (!show) return null;
 
-  const typeConfig = {
+  const config = {
     success: {
-      icon: FaCheckCircle,
-      bgColor: "bg-success",
-      textColor: "text-white",
+      icon: <FaCheckCircle className="text-success" size={24} />,
+      buttonClass: "btn-success",
+      headerClass: "border-success",
     },
     danger: {
-      icon: FaTimesCircle,
-      bgColor: "bg-danger",
-      textColor: "text-white",
+      icon: <FaExclamationCircle className="text-danger" size={24} />,
+      buttonClass: "btn-danger",
+      headerClass: "border-danger",
     },
     warning: {
-      icon: FaExclamationTriangle,
-      bgColor: "bg-warning",
-      textColor: "text-dark",
+      icon: <FaExclamationCircle className="text-warning" size={24} />,
+      buttonClass: "btn-warning",
+      headerClass: "border-warning",
     },
     info: {
-      icon: FaInfoCircle,
-      bgColor: "bg-info",
-      textColor: "text-white",
+      icon: <FaInfoCircle className="text-info" size={24} />,
+      buttonClass: "btn-info",
+      headerClass: "border-info",
     },
   };
 
-  const config = typeConfig[type] || typeConfig.info;
-  const Icon = config.icon;
+  const { icon, buttonClass, headerClass } = config[type] || config.success;
 
   return (
-    <div
-      className="modal show d-block"
-      style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
-    >
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <div className={`modal-header ${config.bgColor} ${config.textColor}`}>
-            <h5 className="modal-title">
-              <Icon className="me-2" />
-              {title}
-            </h5>
-            <button
-              type="button"
-              className="btn-close"
-              onClick={onClose}
-            ></button>
-          </div>
+    <>
+      <div
+        className="modal-backdrop fade show"
+        style={{ zIndex: 1050 }}
+        onClick={onClose}
+      ></div>
 
-          <div className="modal-body">
-            <p className="mb-0">{message}</p>
-          </div>
+      {/* Modal */}
+      <div
+        className="modal fade show d-block"
+        style={{ zIndex: 1055 }}
+        onClick={onClose}
+      >
+        <div
+          className="modal-dialog modal-dialog-centered"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="modal-content border-0 shadow">
+            {/* Header */}
+            <div className={`modal-header border-bottom-0 ${headerClass}`}>
+              <div className="d-flex align-items-center w-100">
+                <div className="me-3">{icon}</div>
+                <h5 className="modal-title fw-bold mb-0">{title}</h5>
+                <button
+                  type="button"
+                  className="btn-close ms-auto"
+                  onClick={onClose}
+                  aria-label="Close"
+                ></button>
+              </div>
+            </div>
 
-          <div className="modal-footer">
-            <button type="button" className="btn btn-primary" onClick={onClose}>
-              Tutup
-            </button>
+            <div className="modal-body py-3">
+              <p className="mb-0">{message}</p>
+            </div>
+
+            <div className="modal-footer border-top-0">
+              <button
+                type="button"
+                className={`btn ${buttonClass} px-4`}
+                onClick={onClose}
+              >
+                Tutup
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
