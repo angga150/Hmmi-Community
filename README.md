@@ -221,3 +221,5 @@ POST /api/attendance/checkin/manual
 
 
 report session done
+
+> done yah abis nih mau lanjut projek mern atau lanjut persiapan projek projek yg bisa dijual untuk **?
